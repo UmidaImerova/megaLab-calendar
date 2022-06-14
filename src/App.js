@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 import LoginPage from './components/Login/LoginPage'
 
 function App() {
