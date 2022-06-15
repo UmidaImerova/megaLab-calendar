@@ -10,9 +10,10 @@ function LoginPage() {
         <div className={style.leftContent}>
           <h1>Добро пожаловать!</h1>
           <div className={style.addPhoto}>
-            <button type="button">
+            <label htmlFor="addPhoto">
+              <input type="file" id="addPhoto" />
               <img src={plusIcon} alt="icon" />
-            </button>
+            </label>
             <span> Добавьте фото профиля </span>
           </div>
           <div className={style.personalForm}>
