@@ -100,13 +100,14 @@
                 font-size: 16px;
                 line-height: 19px;
                 color: #0f0e0e;
+
             }
 
             button {
                 width: 304px;
                 height: 48px;
-                background: #0A253F;
-                opacity: 0.2;
+                opacity: 0.8;
+                background: rgba(52, 82, 148, 1);
                 border-radius: 8px;
 
 
@@ -119,6 +120,11 @@
 
                 color: #FFFFFF;
                 cursor: pointer;
+
+                &:disabled {
+                    background: #0A253F;
+                    opacity: 0.2;
+                }
 
             }
 

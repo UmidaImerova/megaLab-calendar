@@ -1,9 +1,20 @@
-import React from 'react'
+import { React, useState } from 'react'
 import style from './style.module.scss'
 import calendar from './assets/Calendar.png'
 import plusIcon from './assets/plusIcon.svg'
 
 function LoginPage() {
+  const [isDisabled, setDisabled] = useState(false)
+
+  function handleSubmit(e) {
+    e.preventDefault()
+  }
+
+  const confirmBtn = () => {
+    // eslint-disable-next-line no-console
+    console.log('clicked')
+  }
+
   return (
     <>
       <div className={style.left}>
@@ -17,7 +28,7 @@ function LoginPage() {
             <span> Добавьте фото профиля </span>
           </div>
           <div className={style.personalForm}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <label htmlFor="name">
                 ФИО
                 <input type="text" value="John" disabled="true" />
@@ -43,7 +54,9 @@ function LoginPage() {
                 <input type="password" />
               </label>
               <textarea placeholder="О себе..." />
-              <button type="submit">СОХРАНИТЬ</button>
+              <button type="submit" disabled={isDisabled} onClick={confirmBtn}>
+                СОХРАНИТЬ
+              </button>
             </form>
           </div>
         </div>
