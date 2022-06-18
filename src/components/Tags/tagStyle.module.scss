@@ -1,0 +1,44 @@
+.tagsContainer {
+    position: absolute;
+    width: 160px;
+    height: 144px;
+    left: 16px;
+    top: 312px;
+
+    .tagHeader {
+        display: flex;
+        justify-content: space-between;
+
+        h6 {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            color: #4B84F4;
+        }
+
+    }
+
+    .tagList {
+        ul {
+            list-style: none;
+
+            .tagColor {
+                margin: 5px;
+                width: 16px;
+                height: 16px;
+
+                background: #E37DAC;
+                border-radius: 4px;
+            }
+
+            p {
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 16px;
+            }
+        }
+    }
+}
