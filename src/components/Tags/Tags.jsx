@@ -1,23 +1,25 @@
 import React from 'react'
-import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined'
 import s from './tagStyle.module.scss'
+import plusImg from './assets/Plus.svg'
 
 function Tags() {
   return (
     <div className={s.tagsContainer}>
       <div className={s.tagHeader}>
-        <h6> Мои метки</h6>
-        <AddBoxOutlinedIcon sx={{ color: 'primary.main' }} />
+        <h5> Мои метки</h5>
+        <div className={s.plusIcon}>
+          <img src={plusImg} alt="addTagIcon" />
+        </div>
       </div>
       <div className={s.tagList}>
         <ul>
           <li className={s.tag}>
             <div className={s.tagColor} />
-            <p>Рабочий</p>
+            <div className={s.tagTitle}>Рабочий</div>
           </li>
           <li className={s.tag}>
             <div className={s.tagColor} />
-            <p>Личный</p>
+            <div className={s.tagTitle}>Личный</div>
           </li>
         </ul>
       </div>
