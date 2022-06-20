@@ -1,21 +1,21 @@
 .tagsContainer {
     position: absolute;
-    width: 160px;
-    height: 144px;
-    left: 16px;
-    top: 312px;
+    width: 320px;
+
 
     .tagHeader {
         display: flex;
         justify-content: space-between;
+        margin: 15px;
 
         h5 {
             width: 120px;
             height: 24px;
+            margin: 4px;
             font-family: 'Roboto';
             font-style: normal;
             font-weight: 400;
-            font-size: 16px;
+            font-size: 20px;
             line-height: 19px;
             color: #4B84F4;
         }
@@ -42,7 +42,8 @@
                 display: inline-flex;
 
                 .tagColor {
-                    margin: 5px;
+                    margin-left: 15px;
+                    margin-bottom: 15px;
                     width: 16px;
                     height: 16px;
 
@@ -51,12 +52,13 @@
                 }
 
                 .tagTitle {
-                    width: 100px;
-                    margin: 5px;
+                    width: 300px;
+                    margin-left: 15px;
+                    margin-bottom: 15px;
                     font-family: 'Roboto';
                     font-style: normal;
                     font-weight: 400;
-                    font-size: 14px;
+                    font-size: 18px;
                     line-height: 16px;
                 }
             }
