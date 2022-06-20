@@ -10,7 +10,7 @@
     width: 100%;
     height: 100vh;
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 320px 1fr;
     grid-template-rows: 50px 1fr;
     grid-template-areas:
         'sidebar header'
@@ -19,7 +19,13 @@
 
     .sidebar {
         grid-area: sidebar;
-        background-color: aquamarine;
+
+        .newEvenetBtn {
+
+            display: flex;
+            justify-content: center;
+        }
+
     }
 
     .header {
