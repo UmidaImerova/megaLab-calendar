@@ -67,8 +67,8 @@ function LoginPage() {
         <div className={style.leftContent}>
           <h1>Добро пожаловать!</h1>
           <div className={style.addPhoto}>
-            <label htmlFor="addPhoto">
-              <input type="file" id="addPhoto" />
+            <label htmlFor="avatar">
+              <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
               <img src={plusIcon} alt="icon" />
             </label>
             <span> Добавьте фото профиля </span>
