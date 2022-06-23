@@ -1,7 +1,8 @@
 import { React, useState } from 'react'
 import style from './style.module.scss'
 import calendar from './assets/Calendar.png'
-import plusIcon from './assets/plusIcon.svg'
+import AddPhoto from '../../components/AddPhoto/AddPhoto'
+/* import plusIcon from './assets/plusIcon.svg' */
 
 function LoginPage() {
   const [isDisabled, setDisabled] = useState(false)
@@ -20,13 +21,7 @@ function LoginPage() {
       <div className={style.left}>
         <div className={style.leftContent}>
           <h1>Добро пожаловать!</h1>
-          <div className={style.addPhoto}>
-            <label htmlFor="addPhoto">
-              <input type="file" id="addPhoto" />
-              <img src={plusIcon} alt="icon" />
-            </label>
-            <span> Добавьте фото профиля </span>
-          </div>
+          <AddPhoto />
           <div className={style.personalForm}>
             <form onSubmit={handleSubmit}>
               <label htmlFor="name">

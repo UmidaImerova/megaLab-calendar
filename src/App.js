@@ -1,12 +1,12 @@
 import React from 'react'
-/* import LoginPage from './Pages/Login/LoginPage' */
+import LoginPage from './Pages/Login/LoginPage'
 /* import AuthPage from './Pages/Login/AuthPage' */
-import Profile from './Pages/Profile/Profile'
-
+/* import Profile from './Pages/Profile/Profile'
+ */
 function App() {
   return (
     <>
-      <Profile />
+      <LoginPage />
     </>
   )
 }
