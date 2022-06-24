@@ -1,12 +1,16 @@
 import React from 'react'
-import LoginPage from './Pages/Login/LoginPage'
-/* import AuthPage from './Pages/Login/AuthPage' */
-/* import Profile from './Pages/Profile/Profile'
- */
+import { Routes, Route, Link } from 'react-router-dom'
+import { LoginPage, LoginPageFull, AuthPage, Profile } from './Pages'
+
 function App() {
   return (
     <>
-      <LoginPage />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPageFull />} />
+        <Route path="/authorisation" element={<AuthPage />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </>
   )
 }

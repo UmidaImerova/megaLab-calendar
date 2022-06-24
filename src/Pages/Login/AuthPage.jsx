@@ -8,7 +8,7 @@ import {
   InputAdornment,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import style from './style.module.scss'
+import style from './LoginPageStyle.module.scss'
 import calendar from './assets/Calendar.png'
 
 function AuthPage() {
