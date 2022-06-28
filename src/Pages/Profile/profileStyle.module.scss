@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+
 
 }
 
@@ -30,7 +32,128 @@
 
     .header {
         grid-area: header;
-        background-color: darkkhaki;
+        display: flex;
+        justify-content: space-between;
+
+        .leftHeader {
+            width: 50%;
+
+            .todayBtn {
+                width: 112px;
+                height: 32px;
+                margin: 8px;
+                margin-left: 25px;
+                border: none;
+                background: #FFFFFF;
+                box-shadow: 0px 1px 5px rgba(55, 55, 55, 0.17);
+                border-radius: 8px;
+                cursor: pointer;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 17px;
+
+            }
+
+            .selectPeriod {
+                width: 112px;
+                height: 32px;
+                border: none;
+                box-shadow: 0px 1px 5px rgba(55, 55, 55, 0.17);
+                border-radius: 8px;
+                text-align: center;
+                cursor: pointer;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 17px;
+            }
+
+            .iconBtns {
+                width: 50px;
+                display: inline;
+
+                .itemBtn {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    margin-left: 29px;
+                }
+            }
+
+            .selectedPeriod {
+                width: 200px;
+                display: inline;
+                margin-left: 20px;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+            }
+
+        }
+
+        .rightHeader {
+            display: flex;
+            justify-content: flex-end;
+            width: 50%;
+            padding-top: 10px;
+            padding-right: 15px;
+
+            button {
+                width: 14px;
+                height: 14px;
+                background: none;
+                color: inherit;
+                border: none;
+                padding: 0;
+                font: inherit;
+                cursor: pointer;
+                outline: inherit;
+
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+            .searchInput {
+                display: inline;
+                box-sizing: border-box;
+                margin-right: 10px;
+                padding: 5px;
+                width: 32px;
+                height: 32px;
+                border: 1px solid rgba(46, 46, 46, 0.2);
+                border-radius: 8px;
+
+
+
+                input {
+                    border: none;
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                }
+            }
+
+            .notification {
+                display: inline;
+                box-sizing: border-box;
+                padding: 5px;
+                margin-right: 10px;
+                width: 32px;
+                height: 32px;
+                border: 1px solid rgba(46, 46, 46, 0.2);
+                border-radius: 8px;
+            }
+
+            .profileAvatar {
+                display: inline;
+            }
+        }
     }
 
     .content {
