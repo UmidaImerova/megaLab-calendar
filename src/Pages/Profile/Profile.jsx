@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Avatar, Stack } from '@mui/material'
+import moment from 'moment'
+import 'moment/min/locales'
+import { Button, Avatar } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -7,6 +9,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker'
 import s from './profileStyle.module.scss'
 import Logo from '../../components/Logo/Logo'
 import Tags from '../../components/Tags/Tags'
+import DaySheet from '../../components/Calendar/Day/DaySheet'
 import PrevItem from './assets/prevItem_icon.svg'
 import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
@@ -14,6 +17,9 @@ import AlarmIcon from './assets/alarm_icon.svg'
 import CloseIcon from './assets/close_icon.svg'
 
 function Profile() {
+  /* render current day from labrary moment js */
+  moment.locale('ru')
+  const today = moment().format('LL')
   const [value, setValue] = useState(new Date())
   const [hideInput, setHideInput] = useState(true)
 
@@ -43,7 +49,7 @@ function Profile() {
             Создать
           </Button>
         </div>
-        <LocalizationProvider dateAdapter={AdapterMoment}>
+        <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="ru">
           <StaticDatePicker
             displayStaticWrapperAs="desktop"
             orientation="portrait"
@@ -100,7 +106,9 @@ function Profile() {
           />
         </div>
       </div>
-      <div className={s.content}>Content</div>
+      <div className={s.content}>
+        <DaySheet value={value} />
+      </div>
     </div>
   )
 }
