@@ -6,7 +6,7 @@ function DaySheet() {
   const hours = []
   // eslint-disable-next-line no-plusplus
   for (let i = 9; i <= 18; i++) {
-    hours.push(i)
+    hours.push(`${i}:00`)
   }
 
   return (
