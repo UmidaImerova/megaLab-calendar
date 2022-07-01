@@ -10,6 +10,7 @@ import s from './profileStyle.module.scss'
 import Logo from '../../components/Logo/Logo'
 import Tags from '../../components/Tags/Tags'
 import DaySheet from '../../components/Calendar/Day/DaySheet'
+import WeekSheet from '../../components/Calendar/Week/WeekSheet'
 import PrevItem from './assets/prevItem_icon.svg'
 import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
@@ -107,7 +108,7 @@ function Profile() {
         </div>
       </div>
       <div className={s.content}>
-        <DaySheet value={value} />
+        <WeekSheet value={value} />
       </div>
     </div>
   )

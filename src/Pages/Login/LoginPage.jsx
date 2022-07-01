@@ -61,10 +61,14 @@ function LoginPage() {
     console.log('clicked')
   }
 
+  /* recive name from server */
+  const userName = 'Улан Джумалиев'
+
   return (
     <>
       <div className={style.left}>
         <div className={style.leftContent}>
+          <h1>{userName}</h1>
           <h1>Добро пожаловать!</h1>
           <AddPhoto />
           <div className={style.personalForm}>

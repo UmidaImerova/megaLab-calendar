@@ -17,7 +17,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-family: 'Roboto', sans-serif;
 
     .leftContent {
@@ -97,6 +96,26 @@
                 opacity: 0.5;
                 color: #0f0e0e;
             }
+
+            span {
+                margin-right: 8px;
+                font-family: 'Roboto';
+                font-style: normal;
+                font-weight: 300;
+                font-size: 13px;
+                line-height: 15px;
+                color: #2E2E2E;
+                opacity: 0.5;
+            }
+        }
+
+        a {
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 15px;
+            color: #4B84F4;
         }
 
     }

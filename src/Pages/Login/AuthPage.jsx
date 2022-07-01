@@ -8,6 +8,7 @@ import {
   InputAdornment,
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { Link } from 'react-router-dom'
 import style from './LoginPageStyle.module.scss'
 import calendar from './assets/Calendar.png'
 
@@ -71,7 +72,7 @@ function AuthPage() {
     <>
       <div className={style.left}>
         <div className={style.leftContent}>
-          <h1>Добро пожаловать!</h1>
+          <h1>Вход</h1>
           <div className={style.personalForm}>
             <form onSubmit={handleSubmit}>
               {/* e-mail */}
@@ -96,6 +97,7 @@ function AuthPage() {
                   label="Пароль"
                 />
               </FormControl>
+              <Link to="/password">Забыли пароль?</Link>
               <button
                 className={style.submitBtn}
                 type="submit"
@@ -104,6 +106,8 @@ function AuthPage() {
               >
                 Войти
               </button>
+              <span>У вас нет аккаунта?</span>
+              <Link to="/">Регистрация</Link>
             </form>
           </div>
         </div>

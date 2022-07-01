@@ -45,7 +45,7 @@ function LoginPageFull() {
                 <input type="password" />
               </label>
               <label htmlFor="passwordConfirm">
-                Потвердите пароль
+                Повторите пароль
                 <input type="password" />
               </label>
               <textarea placeholder="О себе..." />
