@@ -11,6 +11,7 @@ import Logo from '../../components/Logo/Logo'
 import Tags from '../../components/Tags/Tags'
 import DaySheet from '../../components/Calendar/Day/DaySheet'
 import WeekSheet from '../../components/Calendar/Week/WeekSheet'
+import MonthSheet from '../../components/Calendar/Month/MonthSheet'
 import PrevItem from './assets/prevItem_icon.svg'
 import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
@@ -19,11 +20,25 @@ import CloseIcon from './assets/close_icon.svg'
 
 function Profile() {
   /* render current day from labrary moment js */
-  moment.locale('ru')
-  const today = moment().format('LL')
+  /*   moment.locale('ru')
+  const today = moment().format('LL') */
   const [value, setValue] = useState(new Date())
   const [hideInput, setHideInput] = useState(true)
+  const [selectValue, setSelectValue] = useState('day')
 
+  /* Условный рендеринг компонента сетки календаря */
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function CalendarLayout(props) {
+    if (selectValue === 'day') {
+      return <DaySheet />
+    }
+    if (selectValue === 'week') {
+      return <WeekSheet />
+    }
+    if (selectValue === 'month') {
+      return <MonthSheet />
+    }
+  }
   /* unhide search input */
   const toggleIcon = () => {
     setHideInput(!hideInput)
@@ -69,7 +84,11 @@ function Profile() {
           <button type="button" className={s.todayBtn}>
             Сегодня
           </button>
-          <select className={s.selectPeriod}>
+          <select
+            className={s.selectPeriod}
+            value={selectValue}
+            onChange={(e) => setSelectValue(e.target.value)}
+          >
             <option value="day">День</option>
             <option value="week">Неделя</option>
             <option value="month">Месяц</option>
@@ -108,7 +127,7 @@ function Profile() {
         </div>
       </div>
       <div className={s.content}>
-        <WeekSheet value={value} />
+        <CalendarLayout props={selectValue} />
       </div>
     </div>
   )

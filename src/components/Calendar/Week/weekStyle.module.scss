@@ -1,34 +1,48 @@
 .table {
     margin: 24px;
-    display: grid;
-    grid-template-columns: 72px repeat(7, 1fr);
-    grid-gap: 1px;
     height: 100%;
+    position: relative;
 
-    .headerItem {
-        height: 40px;
-        padding-top: 11px;
-        padding-left: 27px;
-        background: #4B84F4;
-        color: #FFFFFF;
+    .tableHeader {
+        position: sticky;
+        top: 0px;
+        display: grid;
+        grid-template-columns: 72px repeat(7, 1fr);
+        grid-gap: 1px;
+        z-index: 9;
 
+        .headerItem {
+            height: 40px;
+            padding-top: 11px;
+            padding-left: 27px;
+            background: #4B84F4;
+            color: #FFFFFF;
+
+        }
     }
 
-    .tableContentHours {
-        height: 72px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #FFFFFF;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+    .tableContent {
+        display: grid;
+        grid-template-columns: 72px repeat(7, 1fr);
+        grid-gap: 1px;
+
+        .tableContentHours {
+            height: 72px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #FFFFFF;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+        }
+
+        .tableContentEvent {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding-left: 16px;
+            background: #FFFFFF;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+        }
     }
 
-    .tableContentEvent {
-        height: 72px;
-        display: flex;
-        align-items: center;
-        padding-left: 16px;
-        background: #FFFFFF;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
-    }
 }

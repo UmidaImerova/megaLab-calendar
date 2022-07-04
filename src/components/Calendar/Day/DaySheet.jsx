@@ -12,20 +12,24 @@ function DaySheet() {
   return (
     <>
       <div className={style.table}>
-        <div className={style.headerItem}>
-          <img src={clock} alt="clock" />
+        <div className={style.tableHeader}>
+          <div className={style.headerItem}>
+            <img src={clock} alt="clock" />
+          </div>
+          <div className={style.headerItem}>today</div>
         </div>
-        <div className={style.headerItem}>today</div>
-        {hours.map((hour) => (
-          <>
-            <div className={style.tableContentHours} key={hour}>
-              {hour}
-            </div>
-            <div className={style.tableContentEvent} key={hour}>
-              event
-            </div>
-          </>
-        ))}
+        <div className={style.tableContent}>
+          {hours.map((hour) => (
+            <>
+              <div className={style.tableContentHours} key={hour}>
+                {hour}
+              </div>
+              <div className={style.tableContentEvent} key={hour}>
+                event
+              </div>
+            </>
+          ))}
+        </div>
       </div>
     </>
   )

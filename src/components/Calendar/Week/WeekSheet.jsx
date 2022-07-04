@@ -12,24 +12,28 @@ function WeekSheet() {
   return (
     <>
       <div className={style.table}>
-        <div className={style.headerItem}>
-          <img src={clock} alt="clock" />
+        <div className={style.tableHeader}>
+          <div className={style.headerItem}>
+            <img src={clock} alt="clock" />
+          </div>
+          {days.map((day) => (
+            <>
+              <div className={style.headerItem}>{day}</div>
+            </>
+          ))}
         </div>
-        {days.map((day) => (
-          <>
-            <div className={style.headerItem}>{day}</div>
-          </>
-        ))}
-        {hours.map((hour) => (
-          <>
-            <div className={style.tableContentHours} key={hour}>
-              {hour}
-            </div>
-            {days.map((day) => (
-              <div className={style.tableContentEvent}> </div>
-            ))}
-          </>
-        ))}
+        <div className={style.tableContent}>
+          {hours.map((hour) => (
+            <>
+              <div className={style.tableContentHours} key={hour}>
+                {hour}
+              </div>
+              {days.map((day) => (
+                <div className={style.tableContentEvent}> </div>
+              ))}
+            </>
+          ))}
+        </div>
       </div>
     </>
   )
