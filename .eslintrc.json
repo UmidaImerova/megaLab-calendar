@@ -114,10 +114,6 @@
                 "tabs": false,
                 "endOfLine": "auto"
             }
-        ],
-        "linebreak-style": [
-            "error",
-            "windows"
         ]
     }
 }
