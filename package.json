@@ -9,6 +9,7 @@
     "@mui/icons-material": "^5.8.3",
     "@mui/lab": "^5.0.0-alpha.86",
     "@mui/material": "^5.8.3",
+    "@mui/styles": "^5.8.7",
     "@mui/x-date-pickers": "^5.0.0-alpha.6",
     "@mui/x-date-pickers-pro": "^5.0.0-alpha.6",
     "@mui/x-license-pro": "^5.12.2",

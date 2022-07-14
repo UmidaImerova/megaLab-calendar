@@ -20,6 +20,9 @@ function LoginPage() {
   function handleSubmit(e) {
     e.preventDefault()
   }
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault()
+  }
 
   /* show/hide password */
   const handleClickShowPassword = () => {
@@ -33,6 +36,7 @@ function LoginPage() {
         aria-label="toggle password visibility"
         edge="end"
         onClick={handleClickShowPassword}
+        onMouseDown={handleMouseDownPassword}
       >
         {showPassword ? <VisibilityOff /> : <Visibility />}
       </IconButton>
@@ -62,7 +66,7 @@ function LoginPage() {
   }
 
   /* recive name from server */
-  const userName = 'Улан Джумалиев'
+  const userName = 'Улан'
 
   return (
     <>
@@ -94,7 +98,6 @@ function LoginPage() {
                   value={confirmPassword}
                   onChange={(e) => checkPassword(e)}
                   endAdornment={adornmentPosition}
-                  label="Пароль"
                 />
                 <FormHelperText
                   id="component-error-text"

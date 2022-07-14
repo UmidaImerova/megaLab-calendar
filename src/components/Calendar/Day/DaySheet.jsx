@@ -2,12 +2,13 @@ import React from 'react'
 import style from './dayStyle.module.scss'
 import clock from '../assets/clock_icon.svg'
 
-function DaySheet() {
+function DaySheet(calendarValue) {
   const hours = []
   // eslint-disable-next-line no-plusplus
   for (let i = 9; i <= 18; i++) {
     hours.push(`${i}:00`)
   }
+  const today = calendarValue.calendarValue.format('LL')
 
   return (
     <>
@@ -16,7 +17,7 @@ function DaySheet() {
           <div className={style.headerItem}>
             <img src={clock} alt="clock" />
           </div>
-          <div className={style.headerItem}>today</div>
+          <div className={style.headerItem}>{today}</div>
         </div>
         <div className={style.tableContent}>
           {hours.map((hour) => (
@@ -24,9 +25,7 @@ function DaySheet() {
               <div className={style.tableContentHours} key={hour}>
                 {hour}
               </div>
-              <div className={style.tableContentEvent} key={hour}>
-                event
-              </div>
+              <div className={style.tableContentEvent}>event</div>
             </>
           ))}
         </div>

@@ -9,6 +9,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker'
 import s from './profileStyle.module.scss'
 import Logo from '../../components/Logo/Logo'
 import Tags from '../../components/Tags/Tags'
+import CreateNewEvent from '../../components/Event/NewEvent'
 import DaySheet from '../../components/Calendar/Day/DaySheet'
 import WeekSheet from '../../components/Calendar/Week/WeekSheet'
 import MonthSheet from '../../components/Calendar/Month/MonthSheet'
@@ -19,30 +20,37 @@ import AlarmIcon from './assets/alarm_icon.svg'
 import CloseIcon from './assets/close_icon.svg'
 
 function Profile() {
-  /* render current day from labrary moment js */
-  /*   moment.locale('ru')
-  const today = moment().format('LL') */
-  const [value, setValue] = useState(new Date())
+  /* localisation for labrary moment js */
+  moment.locale('ru')
+  /* calendar value */
+  const [value, setValue] = useState(moment())
   const [hideInput, setHideInput] = useState(true)
   const [selectValue, setSelectValue] = useState('day')
+  const [showModal, setShowModal] = useState(true)
 
   /* Условный рендеринг компонента сетки календаря */
   // eslint-disable-next-line react/no-unstable-nested-components
-  function CalendarLayout(props) {
+  function CalendarLayout() {
     if (selectValue === 'day') {
-      return <DaySheet />
+      return <DaySheet calendarValue={value} />
     }
     if (selectValue === 'week') {
-      return <WeekSheet />
+      return <WeekSheet calendarValue={value} />
     }
     if (selectValue === 'month') {
-      return <MonthSheet />
+      return <MonthSheet calendarValue={value} />
     }
   }
   /* unhide search input */
   const toggleIcon = () => {
     setHideInput(!hideInput)
   }
+  /* open/close modal window */
+  const handleModal = () => {
+    setShowModal(!showModal)
+  }
+  /* define selected date */
+  const today = value.format('LL')
 
   return (
     <div className={s.profileWrapper}>
@@ -61,6 +69,7 @@ function Profile() {
               fontSize: 16,
               fontFamily: 'Roboto',
             }}
+            onClick={handleModal}
           >
             Создать
           </Button>
@@ -102,7 +111,7 @@ function Profile() {
             </button>
           </div>
           <div className={s.selectedPeriod}>
-            <span>27 июня 2022 Monday</span>
+            <span>{today}</span>
           </div>
         </div>
         <div className={s.rightHeader}>
@@ -127,8 +136,9 @@ function Profile() {
         </div>
       </div>
       <div className={s.content}>
-        <CalendarLayout props={selectValue} />
+        <CalendarLayout calendarValue={value} />
       </div>
+      <CreateNewEvent showModal={showModal} setShowModal={setShowModal} />
     </div>
   )
 }
