@@ -26,7 +26,7 @@ function Profile() {
   const [value, setValue] = useState(moment())
   const [hideInput, setHideInput] = useState(true)
   const [selectValue, setSelectValue] = useState('day')
-  const [showModal, setShowModal] = useState(true)
+  const [showModal, setShowModal] = useState(false)
 
   /* Условный рендеринг компонента сетки календаря */
   // eslint-disable-next-line react/no-unstable-nested-components
