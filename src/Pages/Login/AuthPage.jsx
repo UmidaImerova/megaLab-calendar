@@ -1,12 +1,4 @@
 import React, { useState } from 'react'
-import {
-  TextField,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  IconButton,
-  InputAdornment,
-} from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
 import style from './LoginPageStyle.module.scss'
@@ -48,20 +40,6 @@ function AuthPage() {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
-
-  /* input icon position */
-  const adornmentPosition = (
-    <InputAdornment position="end">
-      <IconButton
-        aria-label="toggle password visibility"
-        edge="end"
-        onClick={handleClickShowPassword}
-      >
-        {showPassword ? <VisibilityOff /> : <Visibility />}
-      </IconButton>
-    </InputAdornment>
-  )
-
   /* send info to server */
   const confirmBtn = () => {
     // eslint-disable-next-line no-console
@@ -76,27 +54,27 @@ function AuthPage() {
           <div className={style.personalForm}>
             <form onSubmit={handleSubmit}>
               {/* e-mail */}
-              <TextField
-                id="outlined-basic"
-                label="e-mail"
-                variant="outlined"
-                fullWidth
-                sx={{ m: 1 }}
-                value={email}
-                onChange={(e) => handleEmail(e)}
-              />
+              <label htmlFor="email">
+                E-mail
+                <div className={style.input}>
+                  <input type="email" id="email" value={email} onChange={(e) => handleEmail(e)} />
+                </div>
+              </label>
               {/* Password */}
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => handlePassword(e)}
-                  endAdornment={adornmentPosition}
-                  label="Пароль"
-                />
-              </FormControl>
+              <label htmlFor="password">
+                Пароль
+                <div className={style.input}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    value={password}
+                    onChange={(e) => handlePassword(e)}
+                  />
+                  <button className={style.iconBtn} type="button" onClick={handleClickShowPassword}>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </button>
+                </div>
+              </label>
               <Link to="/password">Забыли пароль?</Link>
               <button
                 className={style.submitBtn}

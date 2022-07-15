@@ -53,6 +53,45 @@
                 opacity: 0.5;
             }
 
+            .input {
+
+                width: 304px;
+                height: 40px;
+                margin: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                border: 1px solid #2D1E71;
+                border-radius: 8px;
+
+                input {
+                    width: 250px;
+                    height: 30px;
+                    padding: 5px;
+                    border: none;
+                    border-width: 0;
+                    background: none;
+
+                    &:focus {
+                        outline: none;
+                        background: none;
+                    }
+
+                }
+
+                button {
+
+                    background: none;
+                    color: inherit;
+                    border: none;
+                    padding: 0;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    outline: inherit;
+                }
+            }
+
             .submitBtn {
                 width: 304px;
                 height: 48px;

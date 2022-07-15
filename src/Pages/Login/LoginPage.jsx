@@ -1,8 +1,5 @@
 import { React, useState } from 'react'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import { InputAdornment, OutlinedInput, FormHelperText } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
+import { FormHelperText } from '@mui/material'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import style from './LoginPageStyle.module.scss'
@@ -12,6 +9,7 @@ import AddPhoto from '../../components/AddPhoto/AddPhoto'
 function LoginPage() {
   const [isDisabledBtn, setDisabledBtn] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
@@ -20,28 +18,15 @@ function LoginPage() {
   function handleSubmit(e) {
     e.preventDefault()
   }
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault()
-  }
-
   /* show/hide password */
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword)
   }
+  /* show/hide password confirm */
+  const handleClickShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword)
+  }
 
-  /* input icon position */
-  const adornmentPosition = (
-    <InputAdornment position="end">
-      <IconButton
-        aria-label="toggle password visibility"
-        edge="end"
-        onClick={handleClickShowPassword}
-        onMouseDown={handleMouseDownPassword}
-      >
-        {showPassword ? <VisibilityOff /> : <Visibility />}
-      </IconButton>
-    </InputAdornment>
-  )
   /* set password */
   const handlePassword = (e) => {
     const newPass = e.target.value
@@ -78,34 +63,43 @@ function LoginPage() {
           <div className={style.personalForm}>
             <form onSubmit={handleSubmit}>
               {/* Password */}
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="outlined-adornment-password">Пароль</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => handlePassword(e)}
-                  endAdornment={adornmentPosition}
-                  label="Пароль"
-                />
-              </FormControl>
+              <label htmlFor="password">
+                Пароль
+                <div className={style.input}>
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    id="password"
+                    value={password}
+                    onChange={(e) => handlePassword(e)}
+                  />
+                  <button className={style.iconBtn} type="button" onClick={handleClickShowPassword}>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </button>
+                </div>
+              </label>
               {/* Password confirmation */}
-              <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="outlined-adornment-password">Подтвердите пароль</InputLabel>
-                <OutlinedInput
-                  id="outlined-adornment-password"
-                  type={showPassword ? 'text' : 'password'}
-                  value={confirmPassword}
-                  onChange={(e) => checkPassword(e)}
-                  endAdornment={adornmentPosition}
-                />
-                <FormHelperText
-                  id="component-error-text"
-                  sx={{ color: 'error.main', fontSize: 14 }}
-                >
-                  {errorMsg}
-                </FormHelperText>
-              </FormControl>
+              <label htmlFor="confirmPassword">
+                Подтвердите пароль
+                <div className={style.input}>
+                  <input
+                    type={showConfirmPassword ? 'text' : 'password'}
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => checkPassword(e)}
+                  />
+                  <button
+                    className={style.iconBtn}
+                    type="button"
+                    onClick={handleClickShowConfirmPassword}
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </button>
+                </div>
+              </label>
+              <FormHelperText id="component-error-text" sx={{ color: 'error.main', fontSize: 14 }}>
+                {errorMsg}
+              </FormHelperText>
+
               <textarea placeholder="О себе..." />
               <button
                 className={style.submitBtn}
