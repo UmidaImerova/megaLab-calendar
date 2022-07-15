@@ -50,7 +50,12 @@ function Profile() {
     setShowModal(!showModal)
   }
   /* define selected date */
-  const today = value.format('LL')
+  const pickedDate = value.format('LL')
+  /* open current date */
+  const handleTodayBtn = () => {
+    const today = moment()
+    setValue(today)
+  }
 
   return (
     <div className={s.profileWrapper}>
@@ -80,9 +85,7 @@ function Profile() {
             orientation="portrait"
             openTo="day"
             value={value}
-            onChange={(newValue) => {
-              setValue(newValue)
-            }}
+            onChange={(newValue) => setValue(newValue)}
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
@@ -90,7 +93,7 @@ function Profile() {
       </div>
       <div className={s.header}>
         <div className={s.leftHeader}>
-          <button type="button" className={s.todayBtn}>
+          <button type="button" className={s.todayBtn} onClick={handleTodayBtn}>
             Сегодня
           </button>
           <select
@@ -111,7 +114,7 @@ function Profile() {
             </button>
           </div>
           <div className={s.selectedPeriod}>
-            <span>{today}</span>
+            <span>{pickedDate}</span>
           </div>
         </div>
         <div className={s.rightHeader}>
