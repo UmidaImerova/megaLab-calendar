@@ -1,0 +1,36 @@
+.month {
+    margin: 24px;
+
+    .tableHeader {
+        position: sticky;
+        top: 0px;
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        z-index: 9;
+
+        .headerItem {
+            width: 140px;
+            height: 24px;
+            padding-top: 4px;
+            padding-left: 16px;
+            background: #4B84F4;
+            color: #FFFFFF;
+            border: 1px solid rgba(35, 35, 35, 0.1);
+
+        }
+    }
+
+    .tableContent {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows: repeat(6, 1fr);
+
+        .day {
+            width: 140px;
+            height: 90px;
+
+            background: #FFFFFF;
+            border: 1px solid rgba(35, 35, 35, 0.1);
+        }
+    }
+}
