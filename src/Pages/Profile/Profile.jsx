@@ -25,19 +25,19 @@ function Profile() {
   /* calendar value */
   const [value, setValue] = useState(moment())
   const [hideInput, setHideInput] = useState(true)
-  const [selectValue, setSelectValue] = useState('day')
+  const [selectPeriod, setselectPeriod] = useState('day')
   const [showModal, setShowModal] = useState(false)
 
   /* Условный рендеринг компонента сетки календаря */
   // eslint-disable-next-line react/no-unstable-nested-components
   function CalendarLayout() {
-    if (selectValue === 'day') {
+    if (selectPeriod === 'day') {
       return <DaySheet calendarValue={value} />
     }
-    if (selectValue === 'week') {
+    if (selectPeriod === 'week') {
       return <WeekSheet calendarValue={value} />
     }
-    if (selectValue === 'month') {
+    if (selectPeriod === 'month') {
       return <MonthSheet calendarValue={value} />
     }
   }
@@ -45,7 +45,7 @@ function Profile() {
   const toggleIcon = () => {
     setHideInput(!hideInput)
   }
-  /* open/close modal window */
+  /* open/close modal window Create new event */
   const handleModal = () => {
     setShowModal(!showModal)
   }
@@ -56,7 +56,33 @@ function Profile() {
     const today = moment()
     setValue(today)
   }
-
+  /* handle button previous and next period  */
+  const handlePrevPeriod = () => {
+    if (selectPeriod === 'day') {
+      setValue(value.subtract(1, 'day'))
+    }
+    if (selectPeriod === 'week') {
+      // eslint-disable-next-line no-console
+      console.log('click prev week')
+    }
+    if (selectPeriod === 'month') {
+      // eslint-disable-next-line no-console
+      console.log('click prev mont')
+    }
+  }
+  const handleNextPeriod = () => {
+    if (selectPeriod === 'day') {
+      setValue(value.add(1, 'day'))
+    }
+    if (selectPeriod === 'week') {
+      // eslint-disable-next-line no-console
+      console.log('click next week')
+    }
+    if (selectPeriod === 'month') {
+      // eslint-disable-next-line no-console
+      console.log('click next mont')
+    }
+  }
   return (
     <div className={s.profileWrapper}>
       <div className={s.sidebar}>
@@ -98,18 +124,18 @@ function Profile() {
           </button>
           <select
             className={s.selectPeriod}
-            value={selectValue}
-            onChange={(e) => setSelectValue(e.target.value)}
+            value={selectPeriod}
+            onChange={(e) => setselectPeriod(e.target.value)}
           >
             <option value="day">День</option>
             <option value="week">Неделя</option>
             <option value="month">Месяц</option>
           </select>
           <div className={s.iconBtns}>
-            <button type="button" className={s.itemBtn}>
+            <button type="button" className={s.itemBtn} onClick={handlePrevPeriod}>
               <img src={PrevItem} alt="previousItem" />
             </button>
-            <button type="button" className={s.itemBtn}>
+            <button type="button" className={s.itemBtn} onClick={handleNextPeriod}>
               <img src={NextItem} alt="previousItem" />
             </button>
           </div>

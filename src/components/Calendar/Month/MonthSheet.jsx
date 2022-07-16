@@ -6,28 +6,15 @@ import s from './monthStyle.module.scss'
 function MonthSheet() {
   /* localisation for labrary moment js */
   moment.locale('ru')
-  /* start of calenndar */
-  const startDay = moment().startOf('month').startOf('week')
-  /* end of calendar */
-  const endDay = moment().endOf('month').endOf('week')
   /* create calendar */
   /* шапка по дням недели */
   const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
-
   /* В сетке месяца может быть максимально 6 недель по 7 дней = 42 элемента */
-  const totalDay = 42
-  const daysArray = [...Array(42)]
-
-  const calendar = []
-  const day = startDay.clone()
-  while (!day.isAfter(endDay)) {
-    calendar.push(day.clone())
-    day.add(1, 'day')
-  }
-  window.moment = moment()
-  window.startDay = startDay
-  window.endDay = endDay
-
+  /* start of calenndar */
+  const startDay = moment().startOf('month').startOf('week')
+  const day = startDay.clone().subtract(1, 'day')
+  const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone())
+  const isCurrentDay = (day) => moment().isSame(day, 'day')
   return (
     <div className={s.month}>
       <div className={s.tableHeader}>
@@ -38,8 +25,14 @@ function MonthSheet() {
         ))}
       </div>
       <div className={s.tableContent}>
-        {daysArray.map((_, i) => (
-          <div className={s.day}>{i}</div>
+        {daysArray.map((dayItem) => (
+          <div className={dayItem.day() === 6 || dayItem.day() === 0 ? s.weekend : s.day}>
+            {isCurrentDay(dayItem) ? (
+              <div className={s.currentDay}>{dayItem.format('D')}</div>
+            ) : (
+              dayItem.format('D')
+            )}
+          </div>
         ))}
       </div>
     </div>
