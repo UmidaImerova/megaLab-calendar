@@ -3,15 +3,17 @@ import moment from 'moment'
 import 'moment/min/locales'
 import s from './monthStyle.module.scss'
 
-function MonthSheet() {
+function MonthSheet(calendarValue) {
   /* localisation for labrary moment js */
   moment.locale('ru')
+  /* recive data from parent as props */
+  const value = calendarValue.calendarValue
   /* create calendar */
   /* шапка по дням недели */
   const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
   /* В сетке месяца может быть максимально 6 недель по 7 дней = 42 элемента */
   /* start of calenndar */
-  const startDay = moment().startOf('month').startOf('week')
+  const startDay = value.clone().startOf('month').startOf('week')
   const day = startDay.clone().subtract(1, 'day')
   const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone())
   const isCurrentDay = (day) => moment().isSame(day, 'day')

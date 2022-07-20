@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import style from './LoginPageStyle.module.scss'
 import calendar from './assets/Calendar.png'
 
@@ -9,6 +9,11 @@ function AuthPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isDisabledBtn, setDisabledBtn] = useState(true)
+  /* admin user */
+  const admin = {
+    login: 'ddd@mail.ru',
+    password: '111',
+  }
   /* form control */
   function handleSubmit(e) {
     e.preventDefault()
@@ -41,9 +46,15 @@ function AuthPage() {
     setShowPassword(!showPassword)
   }
   /* send info to server */
-  const confirmBtn = () => {
-    // eslint-disable-next-line no-console
-    console.log({ email }, { password })
+  const navigate = useNavigate()
+  const confirmBtn = (event) => {
+    event.preventDefault()
+    if (email === admin.login && password === admin.password) {
+      navigate('/admin', { replace: true })
+    } else {
+      // eslint-disable-next-line no-console
+      console.log({ email }, { password })
+    }
   }
 
   return (

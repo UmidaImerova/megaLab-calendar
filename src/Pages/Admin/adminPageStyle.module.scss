@@ -1,0 +1,32 @@
+.profileWrapper {
+    position: relative;
+    width: 100%;
+    max-height: 100vh;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 50px 1fr;
+    grid-template-areas:
+        'sidebar header'
+        'sidebar content'
+    ;
+    background: #F9F9F9;
+
+    .sidebar {
+        grid-area: 'sidebar';
+        box-shadow: 2px 0px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .header {
+        grid-area: header;
+        display: flex;
+        justify-content: flex-end;
+        box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.07);
+    }
+
+    .content {
+        grid-area: content;
+        max-height: fit-content;
+
+        overflow: scroll;
+    }
+}

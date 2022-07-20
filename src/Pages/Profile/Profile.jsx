@@ -59,28 +59,24 @@ function Profile() {
   /* handle button previous and next period  */
   const handlePrevPeriod = () => {
     if (selectPeriod === 'day') {
-      setValue(value.subtract(1, 'day'))
+      setValue((prev) => prev.clone().subtract(1, 'day'))
     }
     if (selectPeriod === 'week') {
-      // eslint-disable-next-line no-console
-      console.log('click prev week')
+      setValue((prev) => prev.clone().subtract(1, 'week'))
     }
     if (selectPeriod === 'month') {
-      // eslint-disable-next-line no-console
-      console.log('click prev mont')
+      setValue((prev) => prev.clone().subtract(1, 'month'))
     }
   }
   const handleNextPeriod = () => {
     if (selectPeriod === 'day') {
-      setValue(value.add(1, 'day'))
+      setValue((prev) => prev.clone().add(1, 'day'))
     }
     if (selectPeriod === 'week') {
-      // eslint-disable-next-line no-console
-      console.log('click next week')
+      setValue((prev) => prev.clone().add(1, 'week'))
     }
     if (selectPeriod === 'month') {
-      // eslint-disable-next-line no-console
-      console.log('click next mont')
+      setValue((prev) => prev.clone().add(1, 'month'))
     }
   }
   return (

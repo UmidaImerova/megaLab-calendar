@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { LoginPage, LoginPageFull, AuthPage, Profile, ForgotPassword } from './Pages'
+import { LoginPage, LoginPageFull, AuthPage, Profile, ForgotPassword, AdminPage } from './Pages'
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
         <Route path="/authorisation" element={<AuthPage />} />
         <Route path="/password" element={<ForgotPassword />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
     </>
   )
