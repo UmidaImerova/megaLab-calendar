@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import 'moment/min/locales'
+import { v4 as uuidv4 } from 'uuid'
 import s from './monthStyle.module.scss'
 
 function MonthSheet(calendarValue) {
@@ -22,13 +23,18 @@ function MonthSheet(calendarValue) {
       <div className={s.tableHeader}>
         {weekDays.map((day) => (
           <>
-            <div className={s.headerItem}>{day}</div>
+            <div className={s.headerItem} key={day}>
+              {day}
+            </div>
           </>
         ))}
       </div>
       <div className={s.tableContent}>
         {daysArray.map((dayItem) => (
-          <div className={dayItem.day() === 6 || dayItem.day() === 0 ? s.weekend : s.day}>
+          <div
+            key={uuidv4()}
+            className={dayItem.day() === 6 || dayItem.day() === 0 ? s.weekend : s.day}
+          >
             {isCurrentDay(dayItem) ? (
               <div className={s.currentDay}>{dayItem.format('D')}</div>
             ) : (

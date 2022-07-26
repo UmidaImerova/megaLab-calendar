@@ -1,4 +1,5 @@
 import React from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import style from './weekStyle.module.scss'
 import clock from '../assets/clock_icon.svg'
 
@@ -18,18 +19,22 @@ function WeekSheet() {
           </div>
           {days.map((day) => (
             <>
-              <div className={style.headerItem}>{day}</div>
+              <div className={style.headerItem} key={day}>
+                {day}
+              </div>
             </>
           ))}
         </div>
         <div className={style.tableContent}>
           {hours.map((hour) => (
             <>
-              <div className={style.tableContentHours} key={hour}>
+              <div className={style.tableContentHours} key={uuidv4()}>
                 {hour}
               </div>
               {days.map((day) => (
-                <div className={style.tableContentEvent}> </div>
+                <div className={style.tableContentEvent} key={uuidv4()}>
+                  {' '}
+                </div>
               ))}
             </>
           ))}

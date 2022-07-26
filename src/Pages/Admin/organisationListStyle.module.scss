@@ -1,0 +1,27 @@
+.wrapper {
+    padding: 10px;
+
+    button {
+        width: 184px;
+        height: 45px;
+        margin-top: 16px;
+
+
+        color: #FFFFFF;
+        background: #4B84F4;
+        border: none;
+        border-radius: 10px;
+
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+
+    }
+
+    :focus {
+        outline: none
+    }
+
+}

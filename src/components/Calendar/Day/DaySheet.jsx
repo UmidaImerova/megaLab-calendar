@@ -25,7 +25,9 @@ function DaySheet(calendarValue) {
               <div className={style.tableContentHours} key={hour}>
                 {hour}
               </div>
-              <div className={style.tableContentEvent}>event</div>
+              <div className={style.tableContentEvent} key={hour.i}>
+                event
+              </div>
             </>
           ))}
         </div>
