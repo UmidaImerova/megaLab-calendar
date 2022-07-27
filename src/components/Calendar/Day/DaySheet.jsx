@@ -21,14 +21,10 @@ function DaySheet(calendarValue) {
         </div>
         <div className={style.tableContent}>
           {hours.map((hour) => (
-            <>
-              <div className={style.tableContentHours} key={hour}>
-                {hour}
-              </div>
-              <div className={style.tableContentEvent} key={hour.i}>
-                event
-              </div>
-            </>
+            <React.Fragment key={hour}>
+              <div className={style.tableContentHours}>{hour}</div>
+              <div className={style.tableContentEvent}>event</div>
+            </React.Fragment>
           ))}
         </div>
       </div>
