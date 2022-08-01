@@ -9,7 +9,7 @@ import PersonIcon from '@mui/icons-material/Person'
 
 function AdminNavBar() {
   const navigate = useNavigate()
-  const [openList, setOpenList] = useState(true)
+  const [openList, setOpenList] = useState(false)
   const handleClick = () => {
     setOpenList(!openList)
   }

@@ -1,21 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { v4 as uuidv4 } from 'uuid'
 import CloseIcon from '@mui/icons-material/Close'
 import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
-function ModalAddOrg({ openAddOrg, setOpenAddOrg }) {
+function ModalAddOrg({ openAddOrg, setOpenAddOrg, orgName, setOrgName, handleAddNewOrg }) {
   ModalAddOrg.propTypes = {
     openAddOrg: PropTypes.bool,
     setOpenAddOrg: PropTypes.func,
+    orgName: PropTypes.string,
+    setOrgName: PropTypes.func,
+    handleAddNewOrg: PropTypes.func,
   }
 
-  const [orgName, setOrgName] = useState({ name: '', id: '' })
-  const handleAddOrg = () => {
-    setOrgName({ name: '', id: '' })
-    setOpenAddOrg(false)
-  }
   return (
     <div className={openAddOrg ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
@@ -27,10 +24,10 @@ function ModalAddOrg({ openAddOrg, setOpenAddOrg }) {
           label="Название организации"
           inputProps={{ type: 'text' }}
           id="orgName"
-          value={orgName.name}
-          onChange={(e) => setOrgName({ ...orgName, name: e.target.value, id: uuidv4() })}
+          value={orgName}
+          onChange={(e) => setOrgName(e.target.value)}
         />
-        <button type="submit" onClick={handleAddOrg}>
+        <button type="submit" onClick={handleAddNewOrg}>
           Добавить
         </button>
       </div>

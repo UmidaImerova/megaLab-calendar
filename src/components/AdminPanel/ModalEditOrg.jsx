@@ -1,20 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { v4 as uuidv4 } from 'uuid'
 import CloseIcon from '@mui/icons-material/Close'
 import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
-function ModalEditOrg({ openEditOrg, setOpenEditOrg }) {
+function ModalEditOrg({ openEditOrg, setOpenEditOrg, orgName, setOrgName, editOrg }) {
   ModalEditOrg.propTypes = {
     openEditOrg: PropTypes.bool,
     setOpenEditOrg: PropTypes.func,
-  }
-
-  const [orgName, setOrgName] = useState({ name: '', id: '' })
-  const handleEditOrg = () => {
-    setOrgName({ name: '', id: '' })
-    setOpenEditOrg(false)
+    orgName: PropTypes.string,
+    setOrgName: PropTypes.func,
+    editOrg: PropTypes.func,
   }
   return (
     <div className={openEditOrg ? s.modal : s.modal_hidden}>
@@ -27,10 +23,10 @@ function ModalEditOrg({ openEditOrg, setOpenEditOrg }) {
           label="Название организации"
           inputProps={{ type: 'text' }}
           id="orgName"
-          value={orgName.name}
-          onChange={(e) => setOrgName({ ...orgName, name: e.target.value, id: uuidv4() })}
+          value={orgName}
+          onChange={(e) => setOrgName(e.target.value)}
         />
-        <button type="submit" onClick={handleEditOrg}>
+        <button type="submit" onClick={editOrg}>
           Изменить
         </button>
       </div>
