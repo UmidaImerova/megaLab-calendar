@@ -3,30 +3,23 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  addOrg,
-  editOrg,
-  deleteOrg,
-  getOrganisations,
-  addOrgAsync,
-} from './slicer/organisationSlice'
+import { deleteOrg, getOrganisations, addOrgAsync, editOrgAsync } from './slicer/organisationSlice'
 import ModalAddOrg from '../../components/AdminPanel/ModalAddOrg'
 import ModalEditOrg from '../../components/AdminPanel/ModalEditOrg'
 import s from './organisationListStyle.module.scss'
 
 function OrganisationList() {
-  /* получение данных из базы */
-  // eslint-disable-next-line global-require
-  const axios = require('axios').default
-  // eslint-disable-next-line no-console
-  console.log(axios.get('https://megalab-app.herokuapp.com/api/v1/organization/find-all'))
-
   const [openAddOrg, setOpenAddOrg] = useState(false)
   const [openEditOrg, setOpenEditOrg] = useState(false)
-  const [orgName, setOrgName] = useState('')
-  const [orgId, setOrgId] = useState('')
+  const [organizationName, setOrganizationName] = useState('')
+  const [orgId, setOrgId] = useState()
   const organisations = useSelector((state) => state.orgList.organisations)
   const dispatch = useDispatch()
+
+  /* получение данных из базы */
+  useEffect(() => {
+    dispatch(getOrganisations())
+  }, [])
 
   /* open modal window for add organisation */
   const handleOpenAddOrg = () => {
@@ -34,31 +27,32 @@ function OrganisationList() {
   }
   /* add new organisation */
   const handleAddNewOrg = () => {
-    if (orgName.trim().length) {
-      dispatch(addOrgAsync({ orgName }))
-      setOrgName('')
+    if (organizationName.trim().length) {
+      dispatch(addOrgAsync({ organizationName }))
+      setOrganizationName('')
       setOpenAddOrg(false)
+      dispatch(getOrganisations())
     }
   }
   /* open modal window for edit organisation */
   const handleOpenEditOrg = (e) => {
     setOpenEditOrg(!openEditOrg)
-    const orgId = e.target.id
-    // eslint-disable-next-line no-console
-    console.log(orgId)
-    const selectedOrg = organisations.filter((org) => org.id === orgId)
-    const inputValue = selectedOrg[0].name
-    setOrgName(inputValue)
-    setOrgId(orgId)
+    const organisationId = Number(e.currentTarget.id)
+    const selectedOrg = organisations.filter((org) => org.id === organisationId)
+    const inputValue = selectedOrg[0].organizationName
+    setOrgId(organisationId)
+    setOrganizationName(inputValue)
   }
+  /* edit organisation info */
   const handleEdit = () => {
     dispatch(
-      editOrg({
-        id: orgId,
-        name: orgName,
+      editOrgAsync({
+        organizationId: orgId,
+        organizationName,
+        adminId: 1,
       }),
     )
-    setOrgName('')
+    setOrganizationName('')
     setOrgId('')
     setOpenEditOrg(false)
   }
@@ -81,7 +75,7 @@ function OrganisationList() {
           <TableBody>
             {organisations.map((org) => (
               <TableRow key={org.id}>
-                <TableCell>{org.name}</TableCell>
+                <TableCell>{org.organizationName}</TableCell>
                 <TableCell>
                   <EditIcon
                     id={org.id}
@@ -98,16 +92,16 @@ function OrganisationList() {
         <ModalAddOrg
           openAddOrg={openAddOrg}
           setOpenAddOrg={setOpenAddOrg}
-          orgName={orgName}
-          setOrgName={setOrgName}
+          organizationName={organizationName}
+          setOrganizationName={setOrganizationName}
           handleAddNewOrg={handleAddNewOrg}
         />
         <ModalEditOrg
           openEditOrg={openEditOrg}
           setOpenEditOrg={setOpenEditOrg}
           organisationsList={organisations}
-          orgName={orgName}
-          setOrgName={setOrgName}
+          organizationName={organizationName}
+          setOrganizationName={setOrganizationName}
           editOrg={handleEdit}
         />
       </div>

@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { useEffect } from 'react'
-import { v4 as uuidv4 } from 'uuid'
 
 const axios = require('axios').default
 
@@ -11,19 +9,20 @@ const organisationSlice = createSlice({
   initialState,
   reducers: {
     getOrg(state, action) {
-      state.organisation = [action.payload]
+      state.organisations = action.payload
     },
     addOrg(state, action) {
       state.organisations.push({
-        name: action.payload.orgName,
-        id: uuidv4(),
+        organizationName: action.payload.organizationName,
+        adminUserId: null,
       })
     },
     editOrg(state, action) {
-      const { name, id } = action.payload
+      const { organizationName, id } = action.payload
+      // eslint-disable-next-line eqeqeq
       const selectedOrg = state.organisations.find((item) => item.id === id)
       if (selectedOrg) {
-        selectedOrg.name = name
+        selectedOrg.organizationName = organizationName
       }
     },
     deleteOrg(state, action) {
@@ -34,30 +33,42 @@ const organisationSlice = createSlice({
 export const { addOrg, editOrg, deleteOrg, getOrg } = organisationSlice.actions
 export default organisationSlice.reducer
 
-export const getOrganisations = (data) => async (dispatch) => {
+export const getOrganisations = () => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/organization/find-all'
   try {
-    const response = await axios.get(`${API_URL}/${data}`)
-    // eslint-disable-next-line no-console
-    console.log(response)
-    // dispatch(getOrg(response.data))
+    const response = await axios.get(API_URL)
+    dispatch(getOrg(response.data))
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err)
+    throw new Error(err)
   }
 }
 
 export const addOrgAsync = (data) => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/organization/create'
   try {
-    // console.log(data)
     const response = await axios.post(API_URL, data)
-    // eslint-disable-next-line no-console
-    console.log(response)
-    // dispatch(addOrg(response.data))
+    dispatch(addOrg(response.data))
   } catch (err) {
-    // throw new Error(err)
-    // eslint-disable-next-line no-console
-    console.log(err)
+    throw new Error(err)
+  }
+}
+
+export const editOrgAsync = (data) => async (dispatch) => {
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/organization/update'
+  try {
+    const response = await axios.patch(API_URL, data)
+    dispatch(deleteOrg(response.data))
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+
+export const deleteOrgAsync = (data) => async (dispatch) => {
+  const API_URL = `https://megalab-app.herokuapp.com/api/v1/organization/delete/${data.id}`
+  try {
+    const response = await axios.delete(API_URL)
+    dispatch(addOrg(response.data))
+  } catch (err) {
+    throw new Error(err)
   }
 }

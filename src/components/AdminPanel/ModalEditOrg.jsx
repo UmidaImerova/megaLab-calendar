@@ -4,12 +4,18 @@ import CloseIcon from '@mui/icons-material/Close'
 import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
-function ModalEditOrg({ openEditOrg, setOpenEditOrg, orgName, setOrgName, editOrg }) {
+function ModalEditOrg({
+  openEditOrg,
+  setOpenEditOrg,
+  organizationName,
+  setOrganizationName,
+  editOrg,
+}) {
   ModalEditOrg.propTypes = {
     openEditOrg: PropTypes.bool,
     setOpenEditOrg: PropTypes.func,
-    orgName: PropTypes.string,
-    setOrgName: PropTypes.func,
+    organizationName: PropTypes.string,
+    setOrganizationName: PropTypes.func,
     editOrg: PropTypes.func,
   }
   return (
@@ -22,9 +28,9 @@ function ModalEditOrg({ openEditOrg, setOpenEditOrg, orgName, setOrgName, editOr
         <TextField
           label="Название организации"
           inputProps={{ type: 'text' }}
-          id="orgName"
-          value={orgName}
-          onChange={(e) => setOrgName(e.target.value)}
+          id="organizationName"
+          value={organizationName}
+          onChange={(e) => setOrganizationName(e.target.value)}
         />
         <button type="submit" onClick={editOrg}>
           Изменить

@@ -4,12 +4,18 @@ import CloseIcon from '@mui/icons-material/Close'
 import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
-function ModalAddOrg({ openAddOrg, setOpenAddOrg, orgName, setOrgName, handleAddNewOrg }) {
+function ModalAddOrg({
+  openAddOrg,
+  setOpenAddOrg,
+  organizationName,
+  setOrganizationName,
+  handleAddNewOrg,
+}) {
   ModalAddOrg.propTypes = {
     openAddOrg: PropTypes.bool,
     setOpenAddOrg: PropTypes.func,
-    orgName: PropTypes.string,
-    setOrgName: PropTypes.func,
+    organizationName: PropTypes.string,
+    setOrganizationName: PropTypes.func,
     handleAddNewOrg: PropTypes.func,
   }
 
@@ -23,9 +29,9 @@ function ModalAddOrg({ openAddOrg, setOpenAddOrg, orgName, setOrgName, handleAdd
         <TextField
           label="Название организации"
           inputProps={{ type: 'text' }}
-          id="orgName"
-          value={orgName}
-          onChange={(e) => setOrgName(e.target.value)}
+          id="organizationName"
+          value={organizationName}
+          onChange={(e) => setOrganizationName(e.target.value)}
         />
         <button type="submit" onClick={handleAddNewOrg}>
           Добавить
