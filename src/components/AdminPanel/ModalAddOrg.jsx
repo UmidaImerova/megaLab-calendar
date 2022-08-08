@@ -9,6 +9,8 @@ function ModalAddOrg({
   setOpenAddOrg,
   organizationName,
   setOrganizationName,
+  admin,
+  setAdmin,
   handleAddNewOrg,
 }) {
   ModalAddOrg.propTypes = {
@@ -16,9 +18,15 @@ function ModalAddOrg({
     setOpenAddOrg: PropTypes.func,
     organizationName: PropTypes.string,
     setOrganizationName: PropTypes.func,
+    admin: PropTypes.number,
+    setAdmin: PropTypes.func,
     handleAddNewOrg: PropTypes.func,
   }
 
+  const handleAdmin = (e) => {
+    const adminId = Number(e.currentTarget.value)
+    setAdmin(adminId)
+  }
   return (
     <div className={openAddOrg ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
@@ -32,6 +40,13 @@ function ModalAddOrg({
           id="organizationName"
           value={organizationName}
           onChange={(e) => setOrganizationName(e.target.value)}
+        />
+        <TextField
+          label="Администратор"
+          inputProps={{ type: 'number' }}
+          id="admin"
+          value={admin}
+          onChange={(e) => handleAdmin(e)}
         />
         <button type="submit" onClick={handleAddNewOrg}>
           Добавить

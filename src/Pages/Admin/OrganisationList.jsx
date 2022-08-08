@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
+import { Table, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useSelector, useDispatch } from 'react-redux'
-import { deleteOrg, getOrganisations, addOrgAsync, editOrgAsync } from './slicer/organisationSlice'
+import {
+  getOrganisations,
+  addOrgAsync,
+  editOrgAsync,
+  deleteOrgAsync,
+} from './slicer/organisationSlice'
 import ModalAddOrg from '../../components/AdminPanel/ModalAddOrg'
 import ModalEditOrg from '../../components/AdminPanel/ModalEditOrg'
 import s from './organisationListStyle.module.scss'
@@ -13,13 +18,15 @@ function OrganisationList() {
   const [openEditOrg, setOpenEditOrg] = useState(false)
   const [organizationName, setOrganizationName] = useState('')
   const [orgId, setOrgId] = useState()
-  const organisations = useSelector((state) => state.orgList.organisations)
-  const dispatch = useDispatch()
+  const [admin, setAdmin] = useState()
 
+  const organisationsList = useSelector((state) => state.orgList.organisations)
+  const organisations = organisationsList.filter((org) => org.isDeleted === false)
+  const dispatch = useDispatch()
   /* получение данных из базы */
   useEffect(() => {
     dispatch(getOrganisations())
-  }, [])
+  }, [dispatch])
 
   /* open modal window for add organisation */
   const handleOpenAddOrg = () => {
@@ -28,8 +35,11 @@ function OrganisationList() {
   /* add new organisation */
   const handleAddNewOrg = () => {
     if (organizationName.trim().length) {
-      dispatch(addOrgAsync({ organizationName }))
+      dispatch(addOrgAsync({ organizationName, admin }))
+      // eslint-disable-next-line no-console
+      // console.log({ organizationName, admin })
       setOrganizationName('')
+      setAdmin()
       setOpenAddOrg(false)
       dispatch(getOrganisations())
     }
@@ -56,6 +66,11 @@ function OrganisationList() {
     setOrgId('')
     setOpenEditOrg(false)
   }
+  /* delete organisation */
+  const handleDeleteOrg = (org) => {
+    dispatch(deleteOrgAsync(org))
+    dispatch(getOrganisations())
+  }
   return (
     <div className={s.wrapper}>
       <h2>Список организаций</h2>
@@ -69,21 +84,33 @@ function OrganisationList() {
               <TableCell>
                 <h4>Наименование</h4>
               </TableCell>
-              <TableCell />
+              <TableCell>
+                <h4>Администратор</h4>
+              </TableCell>
+              <TableCell>
+                <h4>Управление</h4>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {organisations.map((org) => (
               <TableRow key={org.id}>
                 <TableCell>{org.organizationName}</TableCell>
+                <TableCell>{`${org.admin.firstName} ${org.admin.lastName}`}</TableCell>
                 <TableCell>
-                  <EditIcon
-                    id={org.id}
-                    color="primary"
-                    sx={{ mr: 1 }}
-                    onClick={(e) => handleOpenEditOrg(e)}
-                  />
-                  <DeleteIcon color="primary" onClick={() => dispatch(deleteOrg(org))} />
+                  {org.isDeleted ? (
+                    <Button>Разблокировать</Button>
+                  ) : (
+                    <div>
+                      <EditIcon
+                        id={org.id}
+                        color="primary"
+                        sx={{ mr: 1 }}
+                        onClick={(e) => handleOpenEditOrg(e)}
+                      />
+                      <DeleteIcon color="primary" onClick={() => handleDeleteOrg(org)} />
+                    </div>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
@@ -94,6 +121,8 @@ function OrganisationList() {
           setOpenAddOrg={setOpenAddOrg}
           organizationName={organizationName}
           setOrganizationName={setOrganizationName}
+          admin={admin}
+          setAdmin={setAdmin}
           handleAddNewOrg={handleAddNewOrg}
         />
         <ModalEditOrg

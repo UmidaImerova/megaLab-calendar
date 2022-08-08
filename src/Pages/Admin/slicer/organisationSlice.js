@@ -12,14 +12,15 @@ const organisationSlice = createSlice({
       state.organisations = action.payload
     },
     addOrg(state, action) {
+      // eslint-disable-next-line no-console
+      // console.log(action.payload)
       state.organisations.push({
         organizationName: action.payload.organizationName,
-        adminUserId: null,
+        adminUserId: 1,
       })
     },
     editOrg(state, action) {
       const { organizationName, id } = action.payload
-      // eslint-disable-next-line eqeqeq
       const selectedOrg = state.organisations.find((item) => item.id === id)
       if (selectedOrg) {
         selectedOrg.organizationName = organizationName
@@ -47,9 +48,12 @@ export const addOrgAsync = (data) => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/organization/create'
   try {
     const response = await axios.post(API_URL, data)
+    // eslint-disable-next-line no-console
+    // console.log(response.data)
     dispatch(addOrg(response.data))
   } catch (err) {
-    throw new Error(err)
+    // eslint-disable-next-line no-console
+    console.log(err)
   }
 }
 
@@ -59,16 +63,21 @@ export const editOrgAsync = (data) => async (dispatch) => {
     const response = await axios.patch(API_URL, data)
     dispatch(deleteOrg(response.data))
   } catch (err) {
-    throw new Error(err)
+    // eslint-disable-next-line no-console
+    console.log(err)
   }
 }
 
 export const deleteOrgAsync = (data) => async (dispatch) => {
-  const API_URL = `https://megalab-app.herokuapp.com/api/v1/organization/delete/${data.id}`
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/organization/delete'
   try {
-    const response = await axios.delete(API_URL)
-    dispatch(addOrg(response.data))
+    const response = await axios.delete(`${API_URL}/${data.id}`)
+    // eslint-disable-next-line no-console
+    // console.log(response)
+    dispatch(deleteOrg(response.data))
   } catch (err) {
-    throw new Error(err)
+    // throw new Error(err)
+    // eslint-disable-next-line no-console
+    console.log(err)
   }
 }
