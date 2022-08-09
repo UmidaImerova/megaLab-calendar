@@ -35,9 +35,7 @@ function OrganisationList() {
   /* add new organisation */
   const handleAddNewOrg = () => {
     if (organizationName.trim().length) {
-      dispatch(addOrgAsync({ organizationName, admin }))
-      // eslint-disable-next-line no-console
-      // console.log({ organizationName, admin })
+      dispatch(addOrgAsync({ organizationName, adminUserId: 1 }))
       setOrganizationName('')
       setAdmin()
       setOpenAddOrg(false)

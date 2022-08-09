@@ -16,7 +16,7 @@ const organisationSlice = createSlice({
       // console.log(action.payload)
       state.organisations.push({
         organizationName: action.payload.organizationName,
-        adminUserId: 1,
+        adminUserId: action.payload.admin,
       })
     },
     editOrg(state, action) {
@@ -49,8 +49,8 @@ export const addOrgAsync = (data) => async (dispatch) => {
   try {
     const response = await axios.post(API_URL, data)
     // eslint-disable-next-line no-console
-    // console.log(response.data)
-    dispatch(addOrg(response.data))
+    console.log(response.data)
+    // dispatch(addOrg(response.data))
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)
