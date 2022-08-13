@@ -3,15 +3,17 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { getmeetingRoom, addMmeetingRoom } from './slicer/roomSlice'
+import { getmeetingRoom, addMeetingRoom, updateMeetingRoom, deleteRoom } from './slicer/roomSlice'
 import s from './organisationListStyle.module.scss'
 import ModalAddRoom from '../../components/AdminPanel/ModalAddRoom'
+import ModalEditRoom from '../../components/AdminPanel/ModalEditRoom'
 
 export default function RoomList() {
   const [openAddRoom, setOpenAddRoom] = useState(false)
+  const [openEditRoom, setOpenEditRoom] = useState(false)
   const [roomName, setRoomName] = useState('')
   const [location, setLocation] = useState('')
-  const [roomCopasity, setRoomCopasity] = useState()
+  const [roomCapacity, setRoomCapacity] = useState('')
   const [isDashboardAvailable, setIsDashboardAvailable] = useState(false)
   const [isProjectorAvailable, setIsProjectorAvailable] = useState(false)
   const [isAcAvailable, setIsAcAvailable] = useState(false)
@@ -32,10 +34,10 @@ export default function RoomList() {
   const handleAddNewRoom = () => {
     if (roomName.trim().length) {
       dispatch(
-        addMmeetingRoom({
+        addMeetingRoom({
           roomName,
           location,
-          roomCopasity: 10,
+          roomCapacity: 10,
           isDashboardAvailable: true,
           isProjectorAvailable: true,
           isAcAvailable: true,
@@ -44,14 +46,55 @@ export default function RoomList() {
       setOpenAddRoom(false)
       setRoomName('')
       setLocation('')
-      setRoomCopasity()
+      setRoomCapacity('')
       setIsDashboardAvailable(false)
       setIsProjectorAvailable(false)
       setIsAcAvailable(false)
-      dispatch(getmeetingRoom())
     }
   }
-
+  /* open modal window for edit room and pass selected room id */
+  const handleOpenEditRoom = (e) => {
+    setOpenEditRoom(!openEditRoom)
+    const roomId = Number(e.currentTarget.id)
+    const selectedRoom = RoomList.filter((room) => room.id === roomId)
+    const roomObj = selectedRoom[0]
+    // eslint-disable-next-line no-console
+    // console.log(roomObj)
+    setRoomName(roomObj.roomName)
+    setLocation(roomObj.location)
+    const roomCopacityToNumber = Number(roomObj.roomCapacity)
+    setRoomCapacity(roomCopacityToNumber)
+    const dashboardAvailableToBool = Boolean(roomObj.isDashboardAvailable)
+    setIsDashboardAvailable(dashboardAvailableToBool)
+    const projectorAvailableToBool = Boolean(roomObj.isProjectAvailable)
+    setIsProjectorAvailable(projectorAvailableToBool)
+    const isAcAvailableToBool = Boolean(roomObj.isAcAvailable)
+    setIsAcAvailable(isAcAvailableToBool)
+  }
+  /* edit room parametrs */
+  const handleEditRoom = () => {
+    dispatch(
+      updateMeetingRoom({
+        roomName,
+        location,
+        roomCapacity: 10,
+        isDashboardAvailable: true,
+        isProjectorAvailable: true,
+        isAcAvailable: true,
+      }),
+    )
+    setOpenEditRoom(false)
+    setRoomName('')
+    setLocation('')
+    setRoomCapacity('')
+    setIsDashboardAvailable(false)
+    setIsProjectorAvailable(false)
+    setIsAcAvailable(false)
+  }
+  /* delete room */
+  const handleDeleteRoom = (room) => {
+    dispatch(deleteRoom(room))
+  }
   return (
     <div className={s.wrapper}>
       <h2>Список комнат</h2>
@@ -100,8 +143,13 @@ export default function RoomList() {
                 <TableCell />
                 <TableCell>
                   <div>
-                    <EditIcon id={room.id} color="primary" sx={{ mr: 1 }} />
-                    <DeleteIcon color="primary" />
+                    <EditIcon
+                      id={room.id}
+                      color="primary"
+                      sx={{ mr: 1 }}
+                      onClick={(e) => handleOpenEditRoom(e)}
+                    />
+                    <DeleteIcon color="primary" onClick={() => handleDeleteRoom(room)} />
                   </div>
                 </TableCell>
               </TableRow>
@@ -115,8 +163,8 @@ export default function RoomList() {
           setRoomName={setRoomName}
           location={location}
           setLocation={setLocation}
-          roomCopasity={roomCopasity}
-          setRoomCopasity={setRoomCopasity}
+          roomCapacity={roomCapacity}
+          setRoomCopasity={setRoomCapacity}
           isDashboardAvailable={isDashboardAvailable}
           setIsDashboardAvailable={setIsDashboardAvailable}
           isProjectorAvailable={isProjectorAvailable}
@@ -124,6 +172,23 @@ export default function RoomList() {
           isAcAvailable={isAcAvailable}
           setIsAcAvailable={setIsAcAvailable}
           addNewRoom={handleAddNewRoom}
+        />
+        <ModalEditRoom
+          openEditRoom={openEditRoom}
+          setOpenEditRoom={setOpenEditRoom}
+          roomName={roomName}
+          setRoomName={setRoomName}
+          location={location}
+          setLocation={setLocation}
+          roomCapacity={roomCapacity}
+          setRoomCopasity={setRoomCapacity}
+          isDashboardAvailable={isDashboardAvailable}
+          setIsDashboardAvailable={setIsDashboardAvailable}
+          isProjectorAvailable={isProjectorAvailable}
+          setIsProjectorAvailable={setIsProjectorAvailable}
+          isAcAvailable={isAcAvailable}
+          setIsAcAvailable={setIsAcAvailable}
+          editRoom={handleEditRoom}
         />
       </div>
     </div>

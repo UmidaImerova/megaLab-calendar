@@ -4,9 +4,9 @@ import CloseIcon from '@mui/icons-material/Close'
 import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
-function ModalAddRoom({
-  openAddRoom,
-  setOpenAddRoom,
+function ModalEditRoom({
+  openEditRoom,
+  setOpenEditRoom,
   roomName,
   setRoomName,
   location,
@@ -19,11 +19,11 @@ function ModalAddRoom({
   setIsProjectorAvailable,
   isAcAvailable,
   setIsAcAvailable,
-  addNewRoom,
+  editRoom,
 }) {
-  ModalAddRoom.propTypes = {
-    openAddRoom: PropTypes.bool,
-    setOpenAddRoom: PropTypes.func,
+  ModalEditRoom.propTypes = {
+    openEditRoom: PropTypes.bool,
+    setOpenEditRoom: PropTypes.func,
     roomName: PropTypes.string,
     setRoomName: PropTypes.func,
     location: PropTypes.string,
@@ -36,14 +36,25 @@ function ModalAddRoom({
     setIsProjectorAvailable: PropTypes.func,
     isAcAvailable: PropTypes.bool,
     setIsAcAvailable: PropTypes.func,
-    addNewRoom: PropTypes.func,
+    editRoom: PropTypes.func,
   }
+
+  const handleRoomCopacity = (e) => {
+    const valueToNumber = Number(e.currentTarget.value)
+    setRoomCapacity(valueToNumber)
+  }
+
+  const handleDashboard = (e) => {
+    const valueToBool = Boolean(e.target.value)
+    setIsDashboardAvailable(valueToBool)
+  }
+
   return (
-    <div className={openAddRoom ? s.modal : s.modal_hidden}>
+    <div className={openEditRoom ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
         <div className={s.header}>
-          <h2>Новая комната встреч</h2>
-          <CloseIcon onClick={() => setOpenAddRoom(false)} />
+          <h2>Редактирование </h2>
+          <CloseIcon onClick={() => setOpenEditRoom(false)} />
         </div>
         <TextField
           label="Наименование"
@@ -64,7 +75,7 @@ function ModalAddRoom({
           inputProps={{ type: 'number' }}
           id="roomCapacity"
           value={roomCapacity}
-          onChange={(e) => setRoomCapacity(e.target.value)}
+          onChange={(e) => handleRoomCopacity(e)}
         />
         <label htmlFor="isDashboardAvailable">
           Наличие доски
@@ -72,7 +83,7 @@ function ModalAddRoom({
             name="isDashboardAvailable"
             id="isDashboardAvailable"
             value={isDashboardAvailable}
-            onChange={(e) => setIsDashboardAvailable(e.target.value)}
+            onChange={(e) => handleDashboard(e)}
           >
             {/* eslint-disable-next-line react/jsx-boolean-value */}
             <option value={true}>Да</option>
@@ -113,12 +124,12 @@ function ModalAddRoom({
           </select>
         </label>
 
-        <button type="submit" onClick={addNewRoom}>
-          Добавить
+        <button type="submit" onClick={editRoom}>
+          Сохранить
         </button>
       </div>
     </div>
   )
 }
 
-export default ModalAddRoom
+export default ModalEditRoom

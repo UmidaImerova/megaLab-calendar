@@ -10,24 +10,10 @@ const roomSlice = createSlice({
     getRooms(state, action) {
       state.meetingrooms = action.payload
     },
-    addRoom(state, action) {
-      // eslint-disable-next-line no-console
-      // console.log(action.payload)
-      state.meetingrooms.push({
-        roomName: action.payload.roomName,
-        location: action.payload.location,
-        roomCopasity: action.payload.roomCopasity,
-        isDashboardAvailable: action.payload.isDashboardAvailable,
-        isProjectorAvailable: action.payload.isProjectorAvailable,
-        isAcAvailable: action.payload.isAcAvailable,
-      })
-    },
-    editRoom(state, action) {},
-    delete(state, action) {},
   },
 })
 
-export const { getRooms, addRoom } = roomSlice.actions
+export const { getRooms, addRoom, editRoom } = roomSlice.actions
 export default roomSlice.reducer
 
 export const getmeetingRoom = () => async (dispatch) => {
@@ -41,16 +27,35 @@ export const getmeetingRoom = () => async (dispatch) => {
   }
 }
 
-export const addMmeetingRoom = (data) => async (dispatch) => {
+export const addMeetingRoom = (data) => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/room/create'
-  // eslint-disable-next-line no-console
-  console.log(data)
   try {
-    const response = await axios.post(API_URL, data)
-    // eslint-disable-next-line no-console
-    console.log(response)
-    // dispatch(addRoom(response.data))
+    await axios.post(API_URL, data)
+    dispatch(getRooms())
   } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err)
+  }
+}
+
+export const updateMeetingRoom = (data) => async (dispatch) => {
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/room/update'
+  try {
+    await axios.put(API_URL, data)
+    dispatch(getRooms())
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err)
+  }
+}
+
+export const deleteRoom = (data) => async (dispatch) => {
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/room/delete'
+  try {
+    await axios.delete(`${API_URL}/${data.id}`)
+    dispatch(getRooms())
+  } catch (err) {
+    // throw new Error(err)
     // eslint-disable-next-line no-console
     console.log(err)
   }
