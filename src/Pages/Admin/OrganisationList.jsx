@@ -39,7 +39,6 @@ function OrganisationList() {
       setOrganizationName('')
       setAdmin()
       setOpenAddOrg(false)
-      dispatch(getOrganisations())
     }
   }
   /* open modal window for edit organisation */
@@ -67,7 +66,6 @@ function OrganisationList() {
   /* delete organisation */
   const handleDeleteOrg = (org) => {
     dispatch(deleteOrgAsync(org))
-    dispatch(getOrganisations())
   }
   return (
     <div className={s.wrapper}>
