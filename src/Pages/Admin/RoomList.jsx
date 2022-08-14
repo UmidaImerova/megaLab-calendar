@@ -3,7 +3,7 @@ import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { getmeetingRoom, addMeetingRoom, updateMeetingRoom, deleteRoom } from './slicer/roomSlice'
+import { addMeetingRoom, updateMeetingRoom, deleteRoom } from './slicer/roomSlice'
 import s from './organisationListStyle.module.scss'
 import ModalAddRoom from '../../components/AdminPanel/ModalAddRoom'
 import ModalEditRoom from '../../components/AdminPanel/ModalEditRoom'
@@ -21,9 +21,6 @@ export default function RoomList() {
   /* receive data from DB */
   const RoomList = useSelector((state) => state.roomList.meetingrooms)
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getmeetingRoom())
-  }, [dispatch])
 
   /* open modal window for add room */
   const handleOpenAddRoom = () => {
