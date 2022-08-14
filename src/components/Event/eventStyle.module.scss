@@ -12,8 +12,6 @@
 
     .wrapper {
         width: 632px;
-        height: 608px;
-
         padding: 16px 24px;
 
         background: #FFFFFF;
@@ -69,7 +67,19 @@
             }
         }
 
+        .event_repeat{
+            select {
+                height: 48px;
+                padding: 5px;
+                border: 1px solid rgba(46, 46, 46, 0.2);
+                border-radius: 8px;
+                cursor: pointer;
 
+                :focus {
+                    outline: none
+                }
+            }
+        }
 
         .event_participants {
             .participant_list {
@@ -237,9 +247,7 @@
             width: 184px;
             height: 48px;
             margin-top: 16px;
-            position: absolute;
-            right: 24px;
-            bottom: 24px;
+
 
             color: #FFFFFF;
             background: #4B84F4;

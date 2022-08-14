@@ -9,8 +9,8 @@ import s from './eventStyle.module.scss'
 function CreateNewEvent({ showModal, setShowModal }) {
   const [dateValue, setDateValue] = useState(new Date())
   const [startTime, setStartTime] = useState(new Date('2018-01-01T00:00:00.000Z'))
-  /*   const [endTime, setEndTime] = useState(new Date('2018-01-01T00:00:00.000Z')) */
-  /*   const [selectValue, setSelectValue] = useState('notRepeat') */
+  const [endTime, setEndTime] = useState(new Date('2018-01-01T00:00:00.000Z'))
+  const [selectValue, setSelectValue] = useState('notRepeat')
   const [selectRoom, setSelectRoom] = useState('room1')
   const [selectTag, setSelectTag] = useState('smth')
   const [selectAccess, setSelectAccess] = useState('free')
@@ -37,7 +37,7 @@ function CreateNewEvent({ showModal, setShowModal }) {
           <input type="text" name="name" id="eventName" />
         </div>
         <div className={s.event_date}>
-          <h6>Дата и время</h6>
+          <h6>Дата</h6>
           <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="ru">
             <DatePicker
               disableFuture
@@ -49,6 +49,11 @@ function CreateNewEvent({ showModal, setShowModal }) {
               }}
               renderInput={(params) => <TextField {...params} />}
             />
+          </LocalizationProvider>
+        </div>
+        <div className={s.evenet_time}>
+          <h6>Время</h6>
+          <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="ru">
             <TimePicker
               value={startTime}
               onChange={(newValue) => {
@@ -56,15 +61,29 @@ function CreateNewEvent({ showModal, setShowModal }) {
               }}
               renderInput={(params) => <TextField {...params} />}
             />
+            <TimePicker
+              value={endTime}
+              onChange={(newValue) => {
+                setStartTime(newValue)
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
           </LocalizationProvider>
-          {/*           <select
+        </div>
+        <div className={s.event_repeat}>
+          <h6>Повтор</h6>
+          <select
             className={s.repeating_select}
             value={selectValue}
             onChange={(e) => setSelectValue(e.target.value)}
           >
             <option value="notRepeat">Не повторять</option>
-            <option value="repeat">Повторять</option>
-          </select> */}
+            <option value="weekday">По будням (Пн-Пт)</option>
+            <option value="everyday">Ежедневно</option>
+            <option value="everyWeek">Еженедельно</option>
+            <option value="everyMonth">Ежемесячно</option>
+            <option value="everyYear">Ежегодно</option>
+          </select>
         </div>
         <div className={s.event_participants}>
           <h6>Участники (1)</h6>
