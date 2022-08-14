@@ -28,6 +28,8 @@ export const getDepartmentsList = () => async (dispatch) => {
 }
 
 export const addNewDepartment = (data) => async (dispatch) => {
+  // eslint-disable-next-line no-console
+  console.log(data)
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/department/create'
   try {
     await axios.post(API_URL, data)

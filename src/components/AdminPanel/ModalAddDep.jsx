@@ -5,11 +5,20 @@ import { useSelector } from 'react-redux'
 import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
-function ModalAddDep({ openAddDep, setOpenAddDep, setSelectedOrgId, handleAddDep }) {
+function ModalAddDep({
+  openAddDep,
+  setOpenAddDep,
+  setSelectedOrgId,
+  departmentName,
+  setDepartmentName,
+  handleAddDep,
+}) {
   ModalAddDep.propTypes = {
     openAddDep: PropTypes.bool,
     setOpenAddDep: PropTypes.func,
     setSelectedOrgId: PropTypes.func,
+    departmentName: PropTypes.string,
+    setDepartmentName: PropTypes.func,
     handleAddDep: PropTypes.func,
   }
   const organisationsList = useSelector((state) => state.orgList.organisations)
@@ -25,7 +34,13 @@ function ModalAddDep({ openAddDep, setOpenAddDep, setSelectedOrgId, handleAddDep
           <h2>Заведение нового отдела</h2>
           <CloseIcon onClick={() => setOpenAddDep(false)} />
         </div>
-        <TextField label="Название отдела" inputProps={{ type: 'text' }} id="departmentName" />
+        <TextField
+          label="Название отдела"
+          inputProps={{ type: 'text' }}
+          id="departmentName"
+          value={departmentName}
+          onChange={(e) => setDepartmentName(e.target.value)}
+        />
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <label htmlFor={organisations}>Наименование организации</label>
         <select className={s.big_select} id="organizationName" onChange={(e) => handleSelectOrg(e)}>

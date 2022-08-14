@@ -5,23 +5,17 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ModalAddDep from '../../components/AdminPanel/ModalAddDep'
 import s from './organisationListStyle.module.scss'
-import { getDepartmentsList, addNewDepartment } from './slicer/departmentSlice'
+import { addNewDepartment } from './slicer/departmentSlice'
 
 function DepartmentList() {
   const [openAddDep, setOpenAddDep] = useState(false)
   const [departmentName, setDepartmentName] = useState('')
   const [selectedOrgId, setSelectedOrgId] = useState(0)
 
-  const organisationsList = useSelector((state) => state.orgList.organisations)
-  const organisations = organisationsList.filter((org) => org.isDeleted === false)
   const departmentsList = useSelector((state) => state.depList.departments)
   const activeDepartments = departmentsList.filter((dep) => dep.isDeleted === false)
 
-  /* recieve all departments from DB  */
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getDepartmentsList())
-  }, [])
 
   /* open modal for adding new depatment */
   const handleOpenAddDep = () => {
@@ -30,11 +24,11 @@ function DepartmentList() {
 
   /* adding new department to DB */
   const handleAddDep = () => {
-    if (departmentName.trim().length) {
-      dispatch(addNewDepartment({ departmentName, selectedOrgId, headUserId: 1 }))
-    }
     // eslint-disable-next-line no-console
-    console.log(selectedOrgId, typeof selectedOrgId)
+    console.log(departmentName)
+    if (departmentName.trim().length) {
+      dispatch(addNewDepartment({ departmentName, organizationId: selectedOrgId, headUserId: 5 }))
+    }
     setOpenAddDep(false)
   }
 
@@ -80,8 +74,10 @@ function DepartmentList() {
       <ModalAddDep
         openAddDep={openAddDep}
         setOpenAddDep={setOpenAddDep}
-        handleAddDep={handleAddDep}
         setSelectedOrgId={setSelectedOrgId}
+        departmentName={departmentName}
+        setDepartmentName={setDepartmentName}
+        handleAddDep={handleAddDep}
       />
     </div>
   )
