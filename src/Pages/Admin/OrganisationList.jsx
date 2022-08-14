@@ -70,7 +70,7 @@ function OrganisationList() {
   return (
     <div className={s.wrapper}>
       <h2>Список организаций</h2>
-      <button type="submit" onClick={(e) => handleOpenAddOrg(e)}>
+      <button type="button" onClick={() => handleOpenAddOrg()}>
         Добавить организацию
       </button>
       <div>

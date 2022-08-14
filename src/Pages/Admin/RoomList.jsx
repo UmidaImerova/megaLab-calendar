@@ -13,12 +13,12 @@ export default function RoomList() {
   const [openEditRoom, setOpenEditRoom] = useState(false)
   const [roomName, setRoomName] = useState('')
   const [location, setLocation] = useState('')
-  const [roomCapacity, setRoomCapacity] = useState('')
+  const [roomCapacity, setRoomCapacity] = useState(0)
   const [isDashboardAvailable, setIsDashboardAvailable] = useState(false)
   const [isProjectorAvailable, setIsProjectorAvailable] = useState(false)
   const [isAcAvailable, setIsAcAvailable] = useState(false)
 
-  /* receive data from backend */
+  /* receive data from DB */
   const RoomList = useSelector((state) => state.roomList.meetingrooms)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -37,10 +37,10 @@ export default function RoomList() {
         addMeetingRoom({
           roomName,
           location,
-          roomCapacity: 10,
-          isDashboardAvailable: true,
-          isProjectorAvailable: true,
-          isAcAvailable: true,
+          roomCapacity,
+          isDashboardAvailable,
+          isProjectorAvailable,
+          isAcAvailable,
         }),
       )
       setOpenAddRoom(false)
@@ -58,8 +58,6 @@ export default function RoomList() {
     const roomId = Number(e.currentTarget.id)
     const selectedRoom = RoomList.filter((room) => room.id === roomId)
     const roomObj = selectedRoom[0]
-    // eslint-disable-next-line no-console
-    // console.log(roomObj)
     setRoomName(roomObj.roomName)
     setLocation(roomObj.location)
     const roomCopacityToNumber = Number(roomObj.roomCapacity)
@@ -164,7 +162,7 @@ export default function RoomList() {
           location={location}
           setLocation={setLocation}
           roomCapacity={roomCapacity}
-          setRoomCopasity={setRoomCapacity}
+          setRoomCapacity={setRoomCapacity}
           isDashboardAvailable={isDashboardAvailable}
           setIsDashboardAvailable={setIsDashboardAvailable}
           isProjectorAvailable={isProjectorAvailable}
@@ -181,7 +179,7 @@ export default function RoomList() {
           location={location}
           setLocation={setLocation}
           roomCapacity={roomCapacity}
-          setRoomCopasity={setRoomCapacity}
+          setRoomCapacity={setRoomCapacity}
           isDashboardAvailable={isDashboardAvailable}
           setIsDashboardAvailable={setIsDashboardAvailable}
           isProjectorAvailable={isProjectorAvailable}

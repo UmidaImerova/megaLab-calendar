@@ -38,6 +38,12 @@ function ModalAddRoom({
     setIsAcAvailable: PropTypes.func,
     addNewRoom: PropTypes.func,
   }
+
+  const handleRoomCopacity = (e) => {
+    const valueToNumber = Number(e.currentTarget.value)
+    setRoomCapacity(valueToNumber)
+  }
+
   return (
     <div className={openAddRoom ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
@@ -63,16 +69,17 @@ function ModalAddRoom({
           label="Вместимость"
           inputProps={{ type: 'number' }}
           id="roomCapacity"
-          value={roomCapacity}
-          onChange={(e) => setRoomCapacity(e.target.value)}
+          value={String(roomCapacity)}
+          onChange={(e) => handleRoomCopacity(e)}
         />
         <label htmlFor="isDashboardAvailable">
           Наличие доски
           <select
+            className={s.smallSelect}
             name="isDashboardAvailable"
             id="isDashboardAvailable"
             value={isDashboardAvailable}
-            onChange={(e) => setIsDashboardAvailable(e.target.value)}
+            onChange={(e) => setIsDashboardAvailable(Boolean(e.target.value))}
           >
             {/* eslint-disable-next-line react/jsx-boolean-value */}
             <option value={true}>Да</option>
@@ -82,10 +89,11 @@ function ModalAddRoom({
         <label htmlFor="isProjectorAvailable">
           Наличие проектора
           <select
+            className={s.smallSelect}
             name="isProjectorAvailable"
             id="isProjectorAvailable"
             value={isProjectorAvailable}
-            onChange={(e) => setIsProjectorAvailable(e.target.value)}
+            onChange={(e) => setIsProjectorAvailable(Boolean(e.target.value))}
           >
             {/* eslint-disable-next-line react/jsx-boolean-value */}
             <option value={true}>Да</option>
@@ -95,10 +103,11 @@ function ModalAddRoom({
         <label htmlFor="isAcAvailable">
           Наличие кондиционера
           <select
+            className={s.smallSelect}
             name="isAcAvailable"
             id="isAcAvailable"
             value={isAcAvailable}
-            onChange={(e) => setIsAcAvailable(e.target.value)}
+            onChange={(e) => setIsAcAvailable(Boolean(e.target.value))}
           >
             {/* eslint-disable-next-line react/jsx-boolean-value */}
             <option value={true}>Да</option>
@@ -107,12 +116,11 @@ function ModalAddRoom({
         </label>
         <label htmlFor="isRoomAvailable">
           Доступность
-          <select name="isRoomAvailable" id="isRoomAvailable">
+          <select className={s.smallSelect} name="isRoomAvailable" id="isRoomAvailable">
             <option value>Да</option>
             <option value={false}>Нет</option>
           </select>
         </label>
-
         <button type="submit" onClick={addNewRoom}>
           Добавить
         </button>

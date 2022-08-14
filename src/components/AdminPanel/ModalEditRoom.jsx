@@ -74,7 +74,7 @@ function ModalEditRoom({
           label="Вместимость"
           inputProps={{ type: 'number' }}
           id="roomCapacity"
-          value={roomCapacity}
+          value={String(roomCapacity)}
           onChange={(e) => handleRoomCopacity(e)}
         />
         <label htmlFor="isDashboardAvailable">
