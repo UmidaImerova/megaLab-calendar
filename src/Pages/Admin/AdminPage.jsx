@@ -8,6 +8,8 @@ import { getmeetingRoom } from './slicer/roomSlice'
 import s from './adminPageStyle.module.scss'
 import Logo from '../../components/Logo/Logo'
 import AdminNavBar from '../../components/AdminPanel/AdminNavBar'
+import { getPositionsAsync } from './slicer/positionsSlice'
+import { getUsersAsync } from './slicer/userSlice'
 
 function AdminPage() {
   const dispatch = useDispatch()
@@ -17,6 +19,8 @@ function AdminPage() {
     dispatch(getOrganisations())
     dispatch(getDepartmentsList())
     dispatch(getmeetingRoom())
+    dispatch(getPositionsAsync())
+    dispatch(getUsersAsync())
   }, [])
   return (
     <div className={s.profileWrapper}>
