@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import style from './LoginPageStyle.module.scss'
 import calendar from './assets/Calendar.png'
 

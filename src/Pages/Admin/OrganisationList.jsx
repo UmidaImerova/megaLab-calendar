@@ -23,10 +23,6 @@ function OrganisationList() {
   const organisationsList = useSelector((state) => state.orgList.organisations)
   const organisations = organisationsList.filter((org) => org.isDeleted === false)
   const dispatch = useDispatch()
-  /* получение данных из базы */
-  useEffect(() => {
-    dispatch(getOrganisations())
-  }, [dispatch])
 
   /* open modal window for add organisation */
   const handleOpenAddOrg = () => {

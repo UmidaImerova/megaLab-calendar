@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Table, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material'
+import React, { useState } from 'react'
+import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import { useSelector, useDispatch } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -24,8 +24,6 @@ function DepartmentList() {
 
   /* adding new department to DB */
   const handleAddDep = () => {
-    // eslint-disable-next-line no-console
-    console.log(departmentName)
     if (departmentName.trim().length) {
       dispatch(addNewDepartment({ departmentName, organizationId: selectedOrgId, headUserId: 5 }))
     }
