@@ -67,7 +67,7 @@ function ModalAddRoom({
         />
         <TextField
           label="Вместимость"
-          inputProps={{ type: 'number' }}
+          inputProps={{ type: 'number', min: '0' }}
           id="roomCapacity"
           value={String(roomCapacity)}
           onChange={(e) => handleRoomCopacity(e)}

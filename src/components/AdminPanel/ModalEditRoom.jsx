@@ -65,7 +65,7 @@ function ModalEditRoom({
         />
         <TextField
           label="Расположение"
-          inputProps={{ type: 'text' }}
+          inputProps={{ type: 'text', min: '0' }}
           id="location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}

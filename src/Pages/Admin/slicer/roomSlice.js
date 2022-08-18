@@ -13,7 +13,7 @@ const roomSlice = createSlice({
   },
 })
 
-export const { getRooms, addRoom, editRoom } = roomSlice.actions
+export const { getRooms } = roomSlice.actions
 export default roomSlice.reducer
 
 export const getmeetingRoom = () => async (dispatch) => {
@@ -31,7 +31,6 @@ export const addMeetingRoom = (data) => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/room/create'
   try {
     await axios.post(API_URL, data)
-    dispatch(getRooms())
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)
@@ -42,7 +41,6 @@ export const updateMeetingRoom = (data) => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/room/update'
   try {
     await axios.put(API_URL, data)
-    dispatch(getRooms())
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)
@@ -53,7 +51,6 @@ export const deleteRoom = (data) => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/room/delete'
   try {
     await axios.delete(`${API_URL}/${data.id}`)
-    dispatch(getRooms())
   } catch (err) {
     // throw new Error(err)
     // eslint-disable-next-line no-console

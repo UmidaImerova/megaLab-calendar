@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { addMeetingRoom, updateMeetingRoom, deleteRoom } from './slicer/roomSlice'
+import { addMeetingRoom, updateMeetingRoom, deleteRoom, getmeetingRoom } from './slicer/roomSlice'
 import s from './organisationListStyle.module.scss'
 import ModalAddRoom from '../../components/AdminPanel/ModalAddRoom'
 import ModalEditRoom from '../../components/AdminPanel/ModalEditRoom'
@@ -39,6 +39,7 @@ export default function RoomList() {
           isProjectorAvailable,
           isAcAvailable,
         }),
+        dispatch(getmeetingRoom()),
       )
       setOpenAddRoom(false)
       setRoomName('')
@@ -57,8 +58,8 @@ export default function RoomList() {
     const roomObj = selectedRoom[0]
     setRoomName(roomObj.roomName)
     setLocation(roomObj.location)
-    const roomCopacityToNumber = Number(roomObj.roomCapacity)
-    setRoomCapacity(roomCopacityToNumber)
+    const roomCapacityToNumber = Number(roomObj.roomCapacity)
+    setRoomCapacity(roomCapacityToNumber)
     const dashboardAvailableToBool = Boolean(roomObj.isDashboardAvailable)
     setIsDashboardAvailable(dashboardAvailableToBool)
     const projectorAvailableToBool = Boolean(roomObj.isProjectAvailable)
@@ -72,12 +73,13 @@ export default function RoomList() {
       updateMeetingRoom({
         roomName,
         location,
-        roomCapacity: 10,
-        isDashboardAvailable: true,
-        isProjectorAvailable: true,
-        isAcAvailable: true,
+        roomCapacity,
+        isDashboardAvailable,
+        isProjectorAvailable,
+        isAcAvailable,
       }),
     )
+    dispatch(getmeetingRoom())
     setOpenEditRoom(false)
     setRoomName('')
     setLocation('')
