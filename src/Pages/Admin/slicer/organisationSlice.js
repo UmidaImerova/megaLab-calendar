@@ -40,6 +40,8 @@ export const addOrgAsync = (data) => async (dispatch) => {
 export const editOrgAsync = (data) => async (dispatch) => {
   const API_URL = 'https://megalab-app.herokuapp.com/api/v1/organization/update'
   try {
+    // eslint-disable-next-line no-console
+    console.log(data)
     await axios.patch(API_URL, data)
     dispatch(getOrganisations())
   } catch (err) {

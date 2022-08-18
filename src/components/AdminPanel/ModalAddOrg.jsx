@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import CloseIcon from '@mui/icons-material/Close'
 import TextField from './TextField'
@@ -9,7 +10,6 @@ function ModalAddOrg({
   setOpenAddOrg,
   organizationName,
   setOrganizationName,
-  admin,
   setAdmin,
   handleAddNewOrg,
 }) {
@@ -18,15 +18,18 @@ function ModalAddOrg({
     setOpenAddOrg: PropTypes.func,
     organizationName: PropTypes.string,
     setOrganizationName: PropTypes.func,
-    admin: PropTypes.number,
     setAdmin: PropTypes.func,
     handleAddNewOrg: PropTypes.func,
   }
 
+  const allUsers = useSelector((state) => state.usersList.users)
+  const activeUsers = allUsers.filter((user) => user.isDeleted === false)
+
   const handleAdmin = (e) => {
-    const adminId = Number(e.currentTarget.value)
+    const adminId = Number(e.target.value)
     setAdmin(adminId)
   }
+
   return (
     <div className={openAddOrg ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
@@ -41,13 +44,17 @@ function ModalAddOrg({
           value={organizationName}
           onChange={(e) => setOrganizationName(e.target.value)}
         />
-        <TextField
-          label="Администратор"
-          inputProps={{ type: 'number' }}
-          id="admin"
-          value={admin}
-          onChange={(e) => handleAdmin(e)}
-        />
+        <div>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label htmlFor="positions">Администратор</label>
+          <select className={s.big_select} id="positions" onChange={(e) => handleAdmin(e)}>
+            {activeUsers.map((user) => (
+              <option key={user.id} value={user.id}>
+                {`${user.firstName} ${user.lastName}`}
+              </option>
+            ))}
+          </select>
+        </div>
         <button type="submit" onClick={handleAddNewOrg}>
           Добавить
         </button>

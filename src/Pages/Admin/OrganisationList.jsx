@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Table, TableHead, TableRow, TableCell, TableBody, Button } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-  getOrganisations,
-  addOrgAsync,
-  editOrgAsync,
-  deleteOrgAsync,
-} from './slicer/organisationSlice'
+import { addOrgAsync, editOrgAsync, deleteOrgAsync } from './slicer/organisationSlice'
 import ModalAddOrg from '../../components/AdminPanel/ModalAddOrg'
 import ModalEditOrg from '../../components/AdminPanel/ModalEditOrg'
 import s from './organisationListStyle.module.scss'
@@ -17,11 +12,12 @@ function OrganisationList() {
   const [openAddOrg, setOpenAddOrg] = useState(false)
   const [openEditOrg, setOpenEditOrg] = useState(false)
   const [organizationName, setOrganizationName] = useState('')
-  const [orgId, setOrgId] = useState()
-  const [admin, setAdmin] = useState()
+  const [orgId, setOrgId] = useState(0)
+  const [admin, setAdmin] = useState(0)
 
   const organisationsList = useSelector((state) => state.orgList.organisations)
   const organisations = organisationsList.filter((org) => org.isDeleted === false)
+
   const dispatch = useDispatch()
 
   /* open modal window for add organisation */
@@ -31,7 +27,7 @@ function OrganisationList() {
   /* add new organisation */
   const handleAddNewOrg = () => {
     if (organizationName.trim().length) {
-      dispatch(addOrgAsync({ organizationName, adminUserId: 1 }))
+      dispatch(addOrgAsync({ organizationName, adminUserId: admin }))
       setOrganizationName('')
       setAdmin()
       setOpenAddOrg(false)
@@ -52,7 +48,7 @@ function OrganisationList() {
       editOrgAsync({
         organizationId: orgId,
         organizationName,
-        adminId: 1,
+        adminId: admin,
       }),
     )
     setOrganizationName('')
@@ -123,6 +119,7 @@ function OrganisationList() {
           organisationsList={organisations}
           organizationName={organizationName}
           setOrganizationName={setOrganizationName}
+          setAdmin={setAdmin}
           editOrg={handleEdit}
         />
       </div>
