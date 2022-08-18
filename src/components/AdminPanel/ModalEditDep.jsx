@@ -5,23 +5,27 @@ import { useSelector } from 'react-redux'
 import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
-function ModalAddDep({
-  openAddDep,
-  setOpenAddDep,
+function ModalEditDep({
+  openEditDep,
+  setOpenEditDep,
+  selectedOrgId,
   setSelectedOrgId,
   departmentName,
   setDepartmentName,
+  head,
   setHead,
-  handleAddDep,
+  handleEditDep,
 }) {
-  ModalAddDep.propTypes = {
-    openAddDep: PropTypes.bool,
-    setOpenAddDep: PropTypes.func,
+  ModalEditDep.propTypes = {
+    openEditDep: PropTypes.bool,
+    setOpenEditDep: PropTypes.func,
+    selectedOrgId: PropTypes.number,
     setSelectedOrgId: PropTypes.func,
     departmentName: PropTypes.string,
     setDepartmentName: PropTypes.func,
+    head: PropTypes.number,
     setHead: PropTypes.func,
-    handleAddDep: PropTypes.func,
+    handleEditDep: PropTypes.func,
   }
   const organisationsList = useSelector((state) => state.orgList.organisations)
   const organisations = organisationsList.filter((org) => org.isDeleted === false)
@@ -39,11 +43,11 @@ function ModalAddDep({
   }
 
   return (
-    <div className={openAddDep ? s.modal : s.modal_hidden}>
+    <div className={openEditDep ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
         <div className={s.header}>
-          <h2>Заведение нового отдела</h2>
-          <CloseIcon onClick={() => setOpenAddDep(false)} />
+          <h2>Редактирование отдела</h2>
+          <CloseIcon onClick={() => setOpenEditDep(false)} />
         </div>
         <TextField
           label="Отдел"
@@ -53,17 +57,13 @@ function ModalAddDep({
           onChange={(e) => setDepartmentName(e.target.value)}
         />
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor={organisations}>Организация</label>
-        <select className={s.big_select} id="organizationName" onChange={(e) => handleSelectOrg(e)}>
-          {organisations.map((org) => (
-            <option key={org.id} value={org.id}>
-              {org.organizationName}
-            </option>
-          ))}
-        </select>
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="positions">Руководитель</label>
-        <select className={s.big_select} id="positions" onChange={(e) => handleAdmin(e)}>
+        <label htmlFor="headOfDep">Руководитель</label>
+        <select
+          className={s.big_select}
+          id="headOfDep"
+          value={head}
+          onChange={(e) => handleAdmin(e)}
+        >
           {activeUsers.map((user) => (
             <option key={user.id} value={user.id}>
               {`${user.firstName} ${user.lastName}`}
@@ -71,8 +71,8 @@ function ModalAddDep({
           ))}
         </select>
         <div>
-          <button type="submit" onClick={handleAddDep}>
-            Добавить
+          <button type="submit" onClick={handleEditDep}>
+            Сохранить
           </button>
         </div>
       </div>
@@ -80,4 +80,4 @@ function ModalAddDep({
   )
 }
 
-export default ModalAddDep
+export default ModalEditDep
