@@ -27,3 +27,38 @@ export const getPositionsAsync = () => async (dispatch) => {
     console.log(err)
   }
 }
+
+export const addPositionsAsync = (data) => async (dispatch) => {
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/position/create'
+  try {
+    await axios.post(API_URL, data)
+    dispatch(getPositionsAsync())
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err)
+  }
+}
+
+export const updatePositionsAsync = (data) => async (dispatch) => {
+  // eslint-disable-next-line no-console
+  console.log(data)
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/position/update'
+  try {
+    await axios.patch(API_URL, data)
+    dispatch(getPositionsAsync())
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err)
+  }
+}
+
+export const deletePositionsAsync = (data) => async (dispatch) => {
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/position/delete'
+  try {
+    await axios.delete(`${API_URL}/${data.id}`)
+    dispatch(getPositionsAsync())
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err)
+  }
+}
