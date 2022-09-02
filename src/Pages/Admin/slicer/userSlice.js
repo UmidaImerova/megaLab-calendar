@@ -27,3 +27,15 @@ export const getUsersAsync = () => async (dispatch) => {
     console.log(err)
   }
 }
+export const addUsersAsync = (data) => async (dispatch) => {
+  // eslint-disable-next-line no-console
+  // console.log(data)
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/user/create'
+  try {
+    await axios.post(API_URL, data)
+    dispatch(getUsersAsync())
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err)
+  }
+}

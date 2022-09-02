@@ -1,9 +1,10 @@
+/* eslint-disable operator-linebreak */
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import CloseIcon from '@mui/icons-material/Close'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { FormHelperText } from '@mui/material'
 import { useSelector } from 'react-redux'
-import TextField from './TextField'
 import s from './modalStyle.module.scss'
 
 function ModalAddUser({
@@ -19,12 +20,17 @@ function ModalAddUser({
   setPhoneNum,
   email,
   setEmail,
+  selectedOrgId,
   setSelectedOrgId,
+  selectedDepId,
   setSelectedDepId,
+  selectedPositionId,
   setSelectedPositionId,
+  selectedRoleId,
   setSelectedRoleId,
   password,
   setPassword,
+  handleAddUser,
 }) {
   ModalAddUser.propTypes = {
     openAddUser: PropTypes.bool,
@@ -39,22 +45,52 @@ function ModalAddUser({
     setPhoneNum: PropTypes.func,
     email: PropTypes.string,
     setEmail: PropTypes.func,
+    selectedOrgId: PropTypes.number,
     setSelectedOrgId: PropTypes.func,
+    selectedDepId: PropTypes.number,
     setSelectedDepId: PropTypes.func,
+    selectedPositionId: PropTypes.number,
     setSelectedPositionId: PropTypes.func,
+    selectedRoleId: PropTypes.number,
     setSelectedRoleId: PropTypes.func,
     password: PropTypes.string,
     setPassword: PropTypes.func,
+    handleAddUser: PropTypes.func,
   }
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(false)
+  const [passwordInputValue, setPasswordInputValue] = useState('')
+  const [confirmPasswordInputValue, setconfirmPasswordInputValue] = useState('')
+  const [isDisabledBtn, setDisabledBtn] = useState(true)
 
   const organisationsList = useSelector((state) => state.orgList.organisations)
   const organisations = organisationsList.filter((org) => org.isDeleted === false)
-  const departmentsList = useSelector((state) => state.depList.departments)
-  const activeDepartments = departmentsList.filter((dep) => dep.isDeleted === false)
-  const allPOsition = useSelector((state) => state.positionList.positions)
-  const activePositions = allPOsition.filter((item) => item.isDeleted === false)
 
+  const departmentsList = useSelector((state) => state.depList.departments)
+  const activeDepartments = departmentsList.filter(
+    (dep) => dep.isDeleted === false && dep.organization.id === selectedOrgId,
+  )
+  const allPOsition = useSelector((state) => state.positionList.positions)
+  const activePositions = allPOsition.filter(
+    (item) => item.isDeleted === false && item.department.id === selectedDepId,
+  )
+  /* валидация заполнения всех полей формы */
+  const checkParams = () => {
+    // eslint-disable-next-line no-console
+    console.log('check')
+    if (
+      firstName.trim().length &&
+      lastName.trim().length &&
+      phoneNum.trim().length &&
+      email.trim().length &&
+      password.trim().length &&
+      (selectedOrgId && selectedDepId && selectedPositionId && selectedRoleId) > 0
+    ) {
+      setDisabledBtn(false)
+    }
+  }
+  /* filling the form */
   const handleSelectOrg = (e) => {
     const selectedOrgId = Number(e.target.value)
     setSelectedOrgId(selectedOrgId)
@@ -75,54 +111,156 @@ function ModalAddUser({
     setSelectedRoleId(selectedRoleId)
   }
   /* show/hide password */
-  const handleClickShowPassword = () => {
+  const handleShowPassword = () => {
     setShowPassword(!showPassword)
   }
+  const handleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword)
+  }
+  /* set password */
+  const handlePassword = (e) => {
+    const inputValue = e.target.value
+    setPasswordInputValue(inputValue)
+    if (confirmPasswordInputValue === inputValue) {
+      setPassword(inputValue)
+      setErrorMsg('')
+    } else {
+      setErrorMsg('Пароли не совпадают')
+    }
+  }
+  const handleConfirmPass = (e) => {
+    const inputValue = e.target.value
+    setconfirmPasswordInputValue(inputValue)
+    if (passwordInputValue === inputValue) {
+      setPassword(inputValue)
+      setErrorMsg('')
+    } else {
+      setErrorMsg('Пароли не совпадают')
+    }
+  }
+
   return (
     <div className={openAddUser ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
         <div className={s.header}>
-          <h2>Заведение нового отдела</h2>
+          <h2>Заведение нового пользователя</h2>
           <CloseIcon onClick={() => setOpenAddUser(false)} />
         </div>
-        <TextField
-          label="Имя"
-          inputProps={{ type: 'text' }}
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-        />
-        <TextField
-          label="Фамилия"
-          inputProps={{ type: 'text' }}
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
-        <TextField
-          label="Отчество"
-          inputProps={{ type: 'text' }}
-          id="lastName"
-          value={patronymic}
-          onChange={(e) => setPatronymic(e.target.value)}
-        />
-        <TextField
-          label="Номер телефона"
-          inputProps={{ type: 'text' }}
-          id="msisdn"
-          value={phoneNum}
-          onChange={(e) => setPhoneNum(e.target.value)}
-        />
-        <TextField
-          label="email"
-          inputProps={{ type: 'text' }}
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div className={s.body_box}>
+          <div className={s.input_box}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor={firstName}>Имя</label>
+            <input
+              className={s.small_input}
+              type="text"
+              id={firstName}
+              value={firstName}
+              onKeyUp={checkParams}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+          <div className={s.input_box}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="lastName">Фамилия</label>
+            <input
+              className={s.small_input}
+              type="text"
+              id="lastName"
+              value={lastName}
+              onKeyUp={checkParams}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+          <div className={s.input_box}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="patronymic">Отчество</label>
+            <input
+              className={s.small_input}
+              type="text"
+              id="patronymic"
+              value={patronymic}
+              onChange={(e) => setPatronymic(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className={s.body_box}>
+          <div className={s.input_box}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="msisdn">Номер телефона</label>
+            <input
+              className={s.small_input}
+              type="text"
+              id="msisdn"
+              value={phoneNum}
+              onKeyUp={checkParams}
+              onChange={(e) => setPhoneNum(e.target.value)}
+            />
+          </div>
+          <div className={s.input_box}>
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+            <label htmlFor="email">Email</label>
+            <input
+              className={s.small_input}
+              type="text"
+              id="email"
+              value={email}
+              onKeyUp={checkParams}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        </div>
+        <div className={s.body_box}>
+          <div className={s.input_box}>
+            <label htmlFor="password">
+              Пароль
+              <div className={s.passwordWrapper}>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  id="password"
+                  value={passwordInputValue}
+                  onKeyUp={checkParams}
+                  onChange={(e) => handlePassword(e)}
+                />
+                <button className={s.iconBtn} type="button" onClick={handleShowPassword}>
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </button>
+              </div>
+            </label>
+          </div>
+          <div className={s.input_box}>
+            <label htmlFor="confirmPassword">
+              Подтвердите пароль
+              <div className={s.passwordWrapper}>
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  id="confirmPassword"
+                  value={confirmPasswordInputValue}
+                  onChange={(e) => handleConfirmPass(e)}
+                />
+                <button className={s.iconBtn} type="button" onClick={handleShowConfirmPassword}>
+                  {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                </button>
+              </div>
+            </label>
+          </div>
+        </div>
+        <div className={s.error_box}>
+          <FormHelperText id="component-error-text" sx={{ color: 'error.main', fontSize: 14 }}>
+            {errorMsg}
+          </FormHelperText>
+        </div>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="organizationName">Наименование организации</label>
-        <select className={s.big_select} id="organizationName" onChange={(e) => handleSelectOrg(e)}>
+        <label htmlFor="organizationName">Организация</label>
+        <select
+          className={s.big_select}
+          id="organizationName"
+          defaultValue={0}
+          onChange={(e) => handleSelectOrg(e)}
+          onClick={checkParams}
+        >
+          <option value={0} disabled>
+            Выберите организацию
+          </option>
           {organisations.map((org) => (
             <option key={org.id} value={org.id}>
               {org.organizationName}
@@ -130,45 +268,69 @@ function ModalAddUser({
           ))}
         </select>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="departments">Наименование организации</label>
-        <select className={s.big_select} id="departments" onChange={(e) => handleSelectDep(e)}>
+        <label htmlFor="departments">Отдел</label>
+        <select
+          className={s.big_select}
+          id="departments"
+          defaultValue={0}
+          onClick={checkParams}
+          onChange={(e) => handleSelectDep(e)}
+        >
+          <option value={0} disabled>
+            Выберите отдел
+          </option>
           {activeDepartments.map((dep) => (
-            <option key={dep.id} value={dep.id}>
+            <option key={dep.id} value={dep.id} onClick={checkParams}>
               {dep.departmentName}
             </option>
           ))}
         </select>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="positions">Наименование организации</label>
-        <select className={s.big_select} id="positions" onChange={(e) => handleSelectPosition(e)}>
+        <label htmlFor="positions">Должность</label>
+        <select
+          className={s.big_select}
+          id="positions"
+          defaultValue={0}
+          onClick={checkParams}
+          onChange={(e) => handleSelectPosition(e)}
+        >
+          <option value={0} disabled>
+            Выберите должность
+          </option>
           {activePositions.map((pos) => (
-            <option key={pos.id} value={pos.id}>
+            <option key={pos.id} value={pos.id} onClick={checkParams}>
               {pos.positionName}
             </option>
           ))}
         </select>
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label htmlFor="role">Наименование организации</label>
-        <select className={s.big_select} id="role" onChange={(e) => handleSelectRole(e)}>
-          <option value={1}>Пользователь</option>
-          <option value={2}>Админ</option>
+        <label htmlFor="role">Роль</label>
+        <select
+          className={s.big_select}
+          id="role"
+          defaultValue={0}
+          onClick={checkParams}
+          onChange={(e) => handleSelectRole(e)}
+        >
+          <option value={0} disabled>
+            Выберите роль
+          </option>
+          <option value={1} onClick={checkParams}>
+            Пользователь
+          </option>
+          <option value={2} onClick={checkParams}>
+            Админ
+          </option>
         </select>
-        <label htmlFor="password">
-          Пароль
-          <div className={s.passwordWrapper}>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button className={s.iconBtn} type="button" onClick={handleClickShowPassword}>
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </button>
-          </div>
-        </label>
         <div>
-          <button type="submit">Добавить</button>
+          <button
+            className={s.standartButton}
+            type="submit"
+            onClick={handleAddUser}
+            disabled={isDisabledBtn}
+          >
+            Добавить
+          </button>
         </div>
       </div>
     </div>
