@@ -124,7 +124,7 @@ function ModalEditRoom({
           </select>
         </label>
 
-        <button type="submit" onClick={editRoom}>
+        <button type="submit" className={s.standartButton} onClick={editRoom}>
           Сохранить
         </button>
       </div>

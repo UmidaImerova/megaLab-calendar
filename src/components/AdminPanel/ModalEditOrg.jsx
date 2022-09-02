@@ -55,7 +55,7 @@ function ModalEditOrg({
             ))}
           </select>
         </div>
-        <button type="submit" onClick={editOrg}>
+        <button type="submit" className={s.standartButton} onClick={editOrg}>
           Изменить
         </button>
       </div>

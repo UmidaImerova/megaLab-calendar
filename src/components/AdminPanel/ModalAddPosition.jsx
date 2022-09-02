@@ -56,7 +56,7 @@ function ModalAddPosition({
           ))}
         </select>
         <div>
-          <button type="submit" onClick={handleAddPosition}>
+          <button type="submit" className={s.standartButton} onClick={handleAddPosition}>
             Добавить
           </button>
         </div>

@@ -71,7 +71,7 @@ function ModalEditDep({
           ))}
         </select>
         <div>
-          <button type="submit" onClick={handleEditDep}>
+          <button type="submit" className={s.standartButton} onClick={handleEditDep}>
             Сохранить
           </button>
         </div>

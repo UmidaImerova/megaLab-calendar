@@ -55,7 +55,7 @@ function ModalAddOrg({
             ))}
           </select>
         </div>
-        <button type="submit" onClick={handleAddNewOrg}>
+        <button type="submit" className={s.standartButton} onClick={handleAddNewOrg}>
           Добавить
         </button>
       </div>

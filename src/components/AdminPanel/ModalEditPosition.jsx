@@ -55,7 +55,7 @@ function ModalEditPosition({
           ))}
         </select>
         <div>
-          <button type="submit" onClick={handleEditPosition}>
+          <button type="submit" className={s.standartButton} onClick={handleEditPosition}>
             Сохранить
           </button>
         </div>

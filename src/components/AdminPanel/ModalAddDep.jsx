@@ -71,7 +71,7 @@ function ModalAddDep({
           ))}
         </select>
         <div>
-          <button type="submit" onClick={handleAddDep}>
+          <button type="submit" className={s.standartButton} onClick={handleAddDep}>
             Добавить
           </button>
         </div>

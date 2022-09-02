@@ -121,7 +121,7 @@ function ModalAddRoom({
             <option value={false}>Нет</option>
           </select>
         </label>
-        <button type="submit" onClick={addNewRoom}>
+        <button type="submit" className={s.standartButton} onClick={addNewRoom}>
           Добавить
         </button>
       </div>

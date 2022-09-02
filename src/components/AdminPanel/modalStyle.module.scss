@@ -16,7 +16,6 @@
     .wrapper {
         padding: 16px 24px;
 
-
         background: #FFFFFF;
         box-shadow: 0px 2px 25px rgba(136, 136, 136, 0.35);
         border-radius: 8px;
@@ -40,12 +39,29 @@
             }
         }
 
+        .body_box{
+            display: flex;
+
+            .input_box{
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
         input {
             width: 484px;
             height: 38px;
             padding: 5px;
             border: 1px solid rgba(46, 46, 46, 0.2);
             border-radius: 8px;
+
+            &.small_input{
+                width: 254px;
+                margin-right: 3px;
+            }
+            &:invalid{
+                border: 2px solid rgba(177, 29, 29, 0.897);
+            }
         }
 
         label {
@@ -56,13 +72,13 @@
             font-weight: 300;
             font-size: 14px;
             line-height: 17px;
-            display: flex;
+            display: block;
             align-items: center;
 
             color: rgba(46, 46, 46, 0.5);
         }
 
-        button {
+        .standartButton {
             width: 184px;
             height: 45px;
             margin-top: 16px;
@@ -79,21 +95,14 @@
             font-size: 16px;
             line-height: 19px;
 
-            &.iconBtn{
-                width: fit-content;
-                height: 0;
-                background: none;
-                color: inherit;
-                border: none;
-                padding: 0;
-                font: inherit;
-                cursor: pointer;
-                outline: inherit;
+            &:focus {
+                outline: none
             }
-        }
-
-        :focus {
-            outline: none
+            
+            &:disabled {
+                background: #0A253F;
+                opacity: 0.2;
+            }
         }
         
         select {
@@ -118,19 +127,19 @@
         }}
 
         .passwordWrapper{
-            width: 304px;
-            height: 40px;
-            margin: 5px;
+            width: 254px;
+            height: 38px;
+            margin: 8px 2px;
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            border: 1px solid #2D1E71;
+            border: 1px solid rgba(46, 46, 46, 0.2);
             border-radius: 8px;
 
             input {
-                width: 250px;
-                height: 30px;
+                width: 254px;
+                height: 38px;
                 padding: 5px;
                 border: none;
                 border-width: 0;
@@ -142,20 +151,21 @@
                 }
 
             }
-
-            button {
-
+            .iconBtn{
+                width: fit-content;
+                height: fit-content;
                 background: none;
                 color: inherit;
                 border: none;
                 padding: 0;
-                margin-right: 10px;
+                margin: 0 5px;
                 cursor: pointer;
                 outline: inherit;
             }
+        
+            }
         }
     }
-}
 
 .modal_hidden {
     display: none;
