@@ -31,6 +31,13 @@ function LoginPage() {
   const handlePassword = (e) => {
     const newPass = e.target.value
     setPassword(newPass)
+    if (newPass !== confirmPassword) {
+      setErrorMsg('Пароль не совпадает')
+      setDisabledBtn(true)
+    } else {
+      setErrorMsg('')
+      setDisabledBtn(false)
+    }
   }
   /* set confirm password and check */
   const checkPassword = (e) => {
