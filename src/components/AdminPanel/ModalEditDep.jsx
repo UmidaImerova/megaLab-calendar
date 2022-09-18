@@ -8,8 +8,6 @@ import s from './modalStyle.module.scss'
 function ModalEditDep({
   openEditDep,
   setOpenEditDep,
-  selectedOrgId,
-  setSelectedOrgId,
   departmentName,
   setDepartmentName,
   head,
@@ -19,23 +17,14 @@ function ModalEditDep({
   ModalEditDep.propTypes = {
     openEditDep: PropTypes.bool,
     setOpenEditDep: PropTypes.func,
-    selectedOrgId: PropTypes.number,
-    setSelectedOrgId: PropTypes.func,
     departmentName: PropTypes.string,
     setDepartmentName: PropTypes.func,
     head: PropTypes.number,
     setHead: PropTypes.func,
     handleEditDep: PropTypes.func,
   }
-  const organisationsList = useSelector((state) => state.orgList.organisations)
-  const organisations = organisationsList.filter((org) => org.isDeleted === false)
   const allUsers = useSelector((state) => state.usersList.users)
   const activeUsers = allUsers.filter((user) => user.isDeleted === false)
-
-  const handleSelectOrg = (e) => {
-    const selectedOrgId = Number(e.target.value)
-    setSelectedOrgId(selectedOrgId)
-  }
 
   const handleAdmin = (e) => {
     const headId = Number(e.target.value)

@@ -31,12 +31,35 @@
 
 
         }
+        .iconBtn{
+            width: fit-content;
+            height: fit-content;
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            margin: 0 5px;
+            cursor: pointer;
+            outline: inherit;
+        }
 
     }
 
     .tagList {
         ul {
             list-style: none;
+
+            .tagBtn{
+                width: fit-content;
+                height: fit-content;
+                background: none;
+                color: inherit;
+                border: none;
+                padding: 0;
+                margin: 0 5px;
+                cursor: pointer;
+                outline: inherit;
+            }
 
             li {
                 display: inline-flex;
@@ -47,7 +70,6 @@
                     width: 16px;
                     height: 16px;
 
-                    background: #E37DAC;
                     border-radius: 4px;
                 }
 
@@ -55,6 +77,7 @@
                     width: 300px;
                     margin-left: 15px;
                     margin-bottom: 15px;
+                    display: flex;
                     font-family: 'Roboto';
                     font-style: normal;
                     font-weight: 400;

@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import moment from 'moment'
 import 'moment/min/locales'
+import { useDispatch } from 'react-redux'
+
 import { Button, Avatar } from '@mui/material'
 import TextField from '@mui/material/TextField'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
@@ -18,6 +20,9 @@ import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
 import AlarmIcon from './assets/alarm_icon.svg'
 import CloseIcon from './assets/close_icon.svg'
+import ModalAddTag from '../../components/Tags/ModalAddTag'
+import ModalEditTag from '../../components/Tags/ModalEditTag'
+import { getTagsListAsync } from './slicer/tagSlice'
 
 function Profile() {
   /* localisation for labrary moment js */
@@ -26,8 +31,17 @@ function Profile() {
   const [value, setValue] = useState(moment())
   const [hideInput, setHideInput] = useState(true)
   const [selectPeriod, setselectPeriod] = useState('day')
-  const [showModal, setShowModal] = useState(false)
-
+  const [showModal, setShowModal] = useState(false) /* модальное окно "СОздать новое событие" */
+  const [openAddTag, setOpenAddTag] = useState(false) /* Модальное окно "Добавить метку" */
+  const [openEditTag, setOpenEditTag] = useState(false) /* Модальное окно "Изменить метку" */
+  const [selectedTagId, setSelectedTagId] = useState(0) /* ID выбранного тэга для редкатирования */
+  const [selectedTagName, setSelectedTagName] = useState('')
+  const [selectedTagColor, setSelectedTagColor] = useState('')
+  const dispatch = useDispatch()
+  /* recieve all tags from DB  */
+  useEffect(() => {
+    dispatch(getTagsListAsync())
+  }, [])
   /* Условный рендеринг компонента сетки календаря */
   // eslint-disable-next-line react/no-unstable-nested-components
   function CalendarLayout() {
@@ -79,6 +93,7 @@ function Profile() {
       setValue((prev) => prev.clone().add(1, 'month'))
     }
   }
+
   return (
     <div className={s.profileWrapper}>
       <div className={s.sidebar}>
@@ -111,7 +126,12 @@ function Profile() {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <Tags />
+        <Tags
+          setSelectedTagId={setSelectedTagId}
+          setSelectedTagName={setSelectedTagName}
+          setSelectedTagColor={setSelectedTagColor}
+          setOpenEditTag={setOpenEditTag}
+        />
       </div>
       <div className={s.header}>
         <div className={s.leftHeader}>
@@ -164,6 +184,17 @@ function Profile() {
         <CalendarLayout calendarValue={value} />
       </div>
       <CreateNewEvent showModal={showModal} setShowModal={setShowModal} />
+      <ModalAddTag openAddTag={openAddTag} setOpenAddTag={setOpenAddTag} />
+      <ModalEditTag
+        openEditTag={openEditTag}
+        setOpenEditTag={setOpenEditTag}
+        selectedTagId={selectedTagId}
+        setSelectedTagId={setSelectedTagId}
+        selectedTagName={selectedTagName}
+        setSelectedTagName={setSelectedTagName}
+        selectedTagColor={selectedTagColor}
+        setSelectedTagColor={setSelectedTagColor}
+      />
     </div>
   )
 }
