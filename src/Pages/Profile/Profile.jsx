@@ -19,9 +19,9 @@ import PrevItem from './assets/prevItem_icon.svg'
 import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
 import AlarmIcon from './assets/alarm_icon.svg'
-import CloseIcon from './assets/close_icon.svg'
 import ModalAddTag from '../../components/Tags/ModalAddTag'
 import ModalEditTag from '../../components/Tags/ModalEditTag'
+import SearchModal from '../../components/SearchMenu/SearchModal'
 import { getTagsListAsync } from './slicer/tagSlice'
 
 function Profile() {
@@ -29,8 +29,8 @@ function Profile() {
   moment.locale('ru')
   /* calendar value */
   const [value, setValue] = useState(moment())
-  const [hideInput, setHideInput] = useState(true)
   const [selectPeriod, setselectPeriod] = useState('day')
+  const [openSearchMenu, setOpenSearchMenu] = useState(false)
   const [showModal, setShowModal] = useState(false) /* модальное окно "СОздать новое событие" */
   const [openAddTag, setOpenAddTag] = useState(false) /* Модальное окно "Добавить метку" */
   const [openEditTag, setOpenEditTag] = useState(false) /* Модальное окно "Изменить метку" */
@@ -54,10 +54,6 @@ function Profile() {
     if (selectPeriod === 'month') {
       return <MonthSheet calendarValue={value} />
     }
-  }
-  /* unhide search input */
-  const toggleIcon = () => {
-    setHideInput(!hideInput)
   }
   /* open/close modal window Create new event */
   const handleModal = () => {
@@ -92,6 +88,11 @@ function Profile() {
     if (selectPeriod === 'month') {
       setValue((prev) => prev.clone().add(1, 'month'))
     }
+  }
+
+  /* modal window for serach menu */
+  const handleOpenSearchMenu = () => {
+    setOpenSearchMenu(!openSearchMenu)
   }
 
   return (
@@ -161,12 +162,9 @@ function Profile() {
         </div>
         <div className={s.rightHeader}>
           <div className={s.searchInput}>
-            <label htmlFor="serchInput">
-              <input type={hideInput ? 'hidden' : 'text'} name="serach" id="serchInput" />
-              <button type="button" onClick={toggleIcon}>
-                <img src={hideInput ? SearchIcon : CloseIcon} alt="search_icon" />
-              </button>
-            </label>
+            <button type="button" onClick={handleOpenSearchMenu}>
+              <img src={SearchIcon} alt="search_icon" />
+            </button>
           </div>
           <div className={s.notification}>
             <button type="button">
@@ -195,6 +193,7 @@ function Profile() {
         selectedTagColor={selectedTagColor}
         setSelectedTagColor={setSelectedTagColor}
       />
+      <SearchModal openSearchMenu={openSearchMenu} setOpenSearchMenu={setOpenSearchMenu} />
     </div>
   )
 }
