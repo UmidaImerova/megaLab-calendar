@@ -32,9 +32,16 @@ function ModalEditTag({
   const [openModal, setOpenModal] = useState(false)
 
   /* Редактирование метки */
+  /*
+  ! userId */
   const handleEditTag = () => {
     dispatch(
-      editTagAsync({ id: selectedTagId, labelName: selectedTagName, labelColor: selectedTagColor }),
+      editTagAsync({
+        id: selectedTagId,
+        userId: 4,
+        labelName: selectedTagName,
+        labelColor: selectedTagColor,
+      }),
     )
     setOpenEditTag(false)
   }
@@ -47,8 +54,11 @@ function ModalEditTag({
   }
 
   /* Удаление метки */
+  /*
+  !userId
+   */
   const handleDeleteTag = () => {
-    dispatch(deleteTagAsync({ id: selectedTagId }))
+    dispatch(deleteTagAsync({ id: selectedTagId, userId: 4 }))
     setOpenEditTag(false)
     setOpenModal(false)
   }

@@ -17,10 +17,10 @@ const tagsSlice = createSlice({
 export const { getTags } = tagsSlice.actions
 export default tagsSlice.reducer
 
-export const getTagsListAsync = () => async (dispatch) => {
-  const URL = 'https://megalab-app.herokuapp.com/api/v1/label/find-all'
+export const getTagsListAsync = (data) => async (dispatch) => {
+  const URL = 'https://megalab-app.herokuapp.com/api/v1/label/find-all-by-user-id'
   try {
-    const response = await axios.get(URL)
+    const response = await axios.get(`${URL}/${data}`)
     dispatch(getTags(response.data))
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -32,7 +32,7 @@ export const addNewTagAsync = (data) => async (dispatch) => {
   const URL = 'https://megalab-app.herokuapp.com/api/v1/label/create'
   try {
     await axios.post(URL, data)
-    dispatch(getTagsListAsync())
+    dispatch(getTagsListAsync(data.userId))
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)
@@ -43,7 +43,7 @@ export const editTagAsync = (data) => async (dispatch) => {
   const URL = 'https://megalab-app.herokuapp.com/api/v1/label/update'
   try {
     await axios.patch(URL, data)
-    dispatch(getTagsListAsync())
+    dispatch(getTagsListAsync(data.userId))
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)
@@ -54,7 +54,7 @@ export const deleteTagAsync = (data) => async (dispatch) => {
   const URL = 'https://megalab-app.herokuapp.com/api/v1/label/delete'
   try {
     await axios.delete(`${URL}/${data.id}`)
-    dispatch(getTagsListAsync())
+    dispatch(getTagsListAsync(data.userId))
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err)

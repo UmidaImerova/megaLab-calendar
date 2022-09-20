@@ -39,8 +39,10 @@ function Profile() {
   const [selectedTagColor, setSelectedTagColor] = useState('')
   const dispatch = useDispatch()
   /* recieve all tags from DB  */
+  /*
+  ! userID passed as data fot method */
   useEffect(() => {
-    dispatch(getTagsListAsync())
+    dispatch(getTagsListAsync(4))
   }, [])
   /* Условный рендеринг компонента сетки календаря */
   // eslint-disable-next-line react/no-unstable-nested-components
@@ -89,7 +91,10 @@ function Profile() {
       setValue((prev) => prev.clone().add(1, 'month'))
     }
   }
-
+  /* open modal window for adding tag */
+  const handleOpenAddTag = () => {
+    setOpenAddTag(true)
+  }
   /* modal window for serach menu */
   const handleOpenSearchMenu = () => {
     setOpenSearchMenu(!openSearchMenu)
@@ -128,6 +133,7 @@ function Profile() {
           />
         </LocalizationProvider>
         <Tags
+          handleOpenAddTag={handleOpenAddTag}
           setSelectedTagId={setSelectedTagId}
           setSelectedTagName={setSelectedTagName}
           setSelectedTagColor={setSelectedTagColor}

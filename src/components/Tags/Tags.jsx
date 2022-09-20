@@ -6,17 +6,17 @@ import s from './tagStyle.module.scss'
 import plusImg from './assets/Plus.svg'
 
 function Tags({
+  handleOpenAddTag,
   setSelectedTagId,
-  handleOpenTagModal,
   setOpenEditTag,
   setSelectedTagName,
   setSelectedTagColor,
 }) {
   Tags.propTypes = {
+    handleOpenAddTag: PropTypes.func,
     setSelectedTagId: PropTypes.func,
     setSelectedTagName: PropTypes.func,
     setSelectedTagColor: PropTypes.func,
-    handleOpenTagModal: PropTypes.func,
     setOpenEditTag: PropTypes.func,
   }
 
@@ -38,7 +38,7 @@ function Tags({
       <div className={s.tagHeader}>
         <h5> Мои метки</h5>
         <div className={s.plusIcon}>
-          <button className={s.iconBtn} type="button" onClick={handleOpenTagModal}>
+          <button className={s.iconBtn} type="button" onClick={handleOpenAddTag}>
             <img src={plusImg} alt="addTagIcon" />
           </button>
         </div>
