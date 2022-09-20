@@ -20,8 +20,7 @@ function UserList() {
   const [selectedPositionId, setSelectedPositionId] = useState(0)
   const [selectedRoleId, setSelectedRoleId] = useState(0)
   const [password, setPassword] = useState('')
-  const allUsers = useSelector((state) => state.usersList.users)
-  const activeUsers = allUsers.filter((user) => user.isDeleted === false)
+  const activeUsers = useSelector((state) => state.usersList.users)
   const dispatch = useDispatch()
   /* open modal window for add organisation */
   const handleOpenAddUser = () => {
@@ -88,11 +87,11 @@ function UserList() {
           <TableBody>
             {activeUsers.map((user) => (
               <TableRow key={user.id}>
-                <TableCell>{`${user.firstName} ${user.lastName}`}</TableCell>
-                <TableCell>departmentName</TableCell>
+                <TableCell>{user.full_name}</TableCell>
+                <TableCell>{user.department_name}</TableCell>
                 <TableCell>organizationName</TableCell>
-                <TableCell>positionName</TableCell>
-                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.position_name}</TableCell>
+                <TableCell>email</TableCell>
                 <TableCell>
                   <button type="button" title="Редактировать" className={s.hiddenButton}>
                     <EditIcon id={user.id} color="primary" sx={{ mr: 1 }} />

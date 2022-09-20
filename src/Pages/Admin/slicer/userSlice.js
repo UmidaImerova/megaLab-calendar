@@ -18,7 +18,7 @@ export const { getUsers } = usersSlice.actions
 export default usersSlice.reducer
 
 export const getUsersAsync = () => async (dispatch) => {
-  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/user/find-all'
+  const API_URL = 'https://megalab-app.herokuapp.com/api/v1/user/find-all-for-web'
   try {
     const response = await axios.get(API_URL)
     dispatch(getUsers(response.data))
