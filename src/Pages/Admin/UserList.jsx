@@ -21,6 +21,7 @@ function UserList() {
   const [selectedRoleId, setSelectedRoleId] = useState(0)
   const [password, setPassword] = useState('')
   const activeUsers = useSelector((state) => state.usersList.users)
+  const departments = useSelector((state) => state.orgList.organisations)
   const dispatch = useDispatch()
   /* open modal window for add organisation */
   const handleOpenAddUser = () => {
@@ -89,9 +90,8 @@ function UserList() {
               <TableRow key={user.id}>
                 <TableCell>{user.full_name}</TableCell>
                 <TableCell>{user.department_name}</TableCell>
-                <TableCell>organizationName</TableCell>
                 <TableCell>{user.position_name}</TableCell>
-                <TableCell>email</TableCell>
+                <TableCell>{user.email}</TableCell>
                 <TableCell>
                   <button type="button" title="Редактировать" className={s.hiddenButton}>
                     <EditIcon id={user.id} color="primary" sx={{ mr: 1 }} />
