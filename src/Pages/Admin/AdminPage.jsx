@@ -5,16 +5,16 @@ import { Avatar } from '@mui/material'
 import { getOrganisations } from './slicer/organisationSlice'
 import { getDepartmentsList } from './slicer/departmentSlice'
 import { getmeetingRoom } from './slicer/roomSlice'
+import { getPositionsAsync } from './slicer/positionsSlice'
+import { getUsersAsync } from './slicer/userSlice'
 import s from './adminPageStyle.module.scss'
 import Logo from '../../components/Logo/Logo'
 import AdminNavBar from '../../components/AdminPanel/AdminNavBar'
-import { getPositionsAsync } from './slicer/positionsSlice'
-import { getUsersAsync } from './slicer/userSlice'
 
 function AdminPage() {
   const dispatch = useDispatch()
 
-  /* recieve all departments from DB  */
+  /* recieve all data from DB  */
   useEffect(() => {
     dispatch(getOrganisations())
     dispatch(getDepartmentsList())
