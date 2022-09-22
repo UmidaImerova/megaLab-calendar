@@ -8,21 +8,22 @@ import TextField from '@mui/material/TextField'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker'
-import s from './profileStyle.module.scss'
 import Logo from '../../components/Logo/Logo'
 import Tags from '../../components/Tags/Tags'
 import CreateNewEvent from '../../components/Event/NewEvent'
 import DaySheet from '../../components/Calendar/Day/DaySheet'
 import WeekSheet from '../../components/Calendar/Week/WeekSheet'
 import MonthSheet from '../../components/Calendar/Month/MonthSheet'
+import ModalAddTag from '../../components/Tags/ModalAddTag'
+import ModalEditTag from '../../components/Tags/ModalEditTag'
+import SearchModal from '../../components/SearchMenu/SearchModal'
+import UserInfo from '../../components/UserInfo/UserInfo'
 import PrevItem from './assets/prevItem_icon.svg'
 import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
 import AlarmIcon from './assets/alarm_icon.svg'
-import ModalAddTag from '../../components/Tags/ModalAddTag'
-import ModalEditTag from '../../components/Tags/ModalEditTag'
-import SearchModal from '../../components/SearchMenu/SearchModal'
 import { getTagsListAsync } from './slicer/tagSlice'
+import s from './profileStyle.module.scss'
 
 function Profile() {
   /* localisation for labrary moment js */
@@ -35,6 +36,7 @@ function Profile() {
   const [openAddTag, setOpenAddTag] = useState(false) /* Модальное окно "Добавить метку" */
   const [openEditTag, setOpenEditTag] = useState(false) /* Модальное окно "Изменить метку" */
   const [selectedTagId, setSelectedTagId] = useState(0) /* ID выбранного тэга для редкатирования */
+  const [openUserInfo, setOpenUserInfo] = useState(false) /* модальное окно инфо о юзере */
   const [selectedTagName, setSelectedTagName] = useState('')
   const [selectedTagColor, setSelectedTagColor] = useState('')
   const dispatch = useDispatch()
@@ -98,6 +100,10 @@ function Profile() {
   /* modal window for serach menu */
   const handleOpenSearchMenu = () => {
     setOpenSearchMenu(!openSearchMenu)
+  }
+
+  const handleClickAvatar = () => {
+    setOpenUserInfo(!openUserInfo)
   }
 
   return (
@@ -181,6 +187,7 @@ function Profile() {
             sx={{ width: 32, height: 32, display: 'inline-flex' }}
             alt="Remy Sharp"
             src="/broken-image.jpg"
+            onClick={handleClickAvatar}
           />
         </div>
       </div>
@@ -200,6 +207,7 @@ function Profile() {
         setSelectedTagColor={setSelectedTagColor}
       />
       <SearchModal openSearchMenu={openSearchMenu} setOpenSearchMenu={setOpenSearchMenu} />
+      <UserInfo openUserInfo={openUserInfo} setOpenUserInfo={setOpenUserInfo} />
     </div>
   )
 }
