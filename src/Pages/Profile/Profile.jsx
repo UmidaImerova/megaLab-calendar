@@ -18,6 +18,7 @@ import ModalAddTag from '../../components/Tags/ModalAddTag'
 import ModalEditTag from '../../components/Tags/ModalEditTag'
 import SearchModal from '../../components/SearchMenu/SearchModal'
 import UserInfo from '../../components/UserInfo/UserInfo'
+import EditUserModal from '../../components/UserInfo/EditUserModal'
 import PrevItem from './assets/prevItem_icon.svg'
 import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
@@ -28,8 +29,8 @@ import s from './profileStyle.module.scss'
 function Profile() {
   /* localisation for labrary moment js */
   moment.locale('ru')
-  /* calendar value */
-  const [value, setValue] = useState(moment())
+
+  const [value, setValue] = useState(moment()) /* calendar value */
   const [selectPeriod, setselectPeriod] = useState('day')
   const [openSearchMenu, setOpenSearchMenu] = useState(false)
   const [showModal, setShowModal] = useState(false) /* модальное окно "СОздать новое событие" */
@@ -37,10 +38,16 @@ function Profile() {
   const [openEditTag, setOpenEditTag] = useState(false) /* Модальное окно "Изменить метку" */
   const [selectedTagId, setSelectedTagId] = useState(0) /* ID выбранного тэга для редкатирования */
   const [openUserInfo, setOpenUserInfo] = useState(false) /* модальное окно инфо о юзере */
-  const [selectedTagName, setSelectedTagName] = useState('')
-  const [selectedTagColor, setSelectedTagColor] = useState('')
+  const [openEditUser, setOpenEditUser] = useState(false) /* редак-е инфо о юзере */
+  const [firstName, setFirstName] = useState('') /* имя юзера */
+  const [lastName, setLastName] = useState('') /* фамилия юзера */
+  const [patronymic, setPatronymic] = useState('') /* отчество юзера */
+  const [email, setEmail] = useState('') /* эл. почта юзера */
+  const [password, setPassword] = useState('') /* пароль юзера */
+  const [selectedTagName, setSelectedTagName] = useState('') /* выбранная метка -имя */
+  const [selectedTagColor, setSelectedTagColor] = useState('') /* выбранная метка - id */
   const dispatch = useDispatch()
-  /* recieve all tags from DB  */
+  /* recieve all user tags from DB  */
   /*
   ! userID passed as data fot method */
   useEffect(() => {
@@ -183,12 +190,14 @@ function Profile() {
               <img src={AlarmIcon} alt="alarm_icon" />
             </button>
           </div>
-          <Avatar
-            sx={{ width: 32, height: 32, display: 'inline-flex' }}
-            alt="Remy Sharp"
-            src="/broken-image.jpg"
-            onClick={handleClickAvatar}
-          />
+          <div className={s.profileAvatar}>
+            <Avatar
+              sx={{ width: 32, height: 32, display: 'inline-flex' }}
+              alt="Remy Sharp"
+              src="/broken-image.jpg"
+              onClick={handleClickAvatar}
+            />
+          </div>
         </div>
       </div>
       <div className={s.content}>
@@ -207,7 +216,25 @@ function Profile() {
         setSelectedTagColor={setSelectedTagColor}
       />
       <SearchModal openSearchMenu={openSearchMenu} setOpenSearchMenu={setOpenSearchMenu} />
-      <UserInfo openUserInfo={openUserInfo} setOpenUserInfo={setOpenUserInfo} />
+      <UserInfo
+        openUserInfo={openUserInfo}
+        setOpenUserInfo={setOpenUserInfo}
+        setOpenEditUser={setOpenEditUser}
+      />
+      <EditUserModal
+        openEditUser={openEditUser}
+        setOpenEditUser={setOpenEditUser}
+        firstName={firstName}
+        setFirstName={setFirstName}
+        lastName={lastName}
+        setLastName={setLastName}
+        patronymic={patronymic}
+        sePatronymic={setPatronymic}
+        email={email}
+        setEmail={setEmail}
+        password={password}
+        setPassword={setPassword}
+      />
     </div>
   )
 }

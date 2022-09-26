@@ -165,7 +165,9 @@
             }
 
             .profileAvatar {
-                display: inline;
+                &:hover{
+                    cursor: pointer;
+                }
             }
         }
     }
