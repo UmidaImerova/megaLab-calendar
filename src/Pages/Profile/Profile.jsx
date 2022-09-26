@@ -11,9 +11,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker'
 import Logo from '../../components/Logo/Logo'
 import Tags from '../../components/Tags/Tags'
 import CreateNewEvent from '../../components/Event/NewEvent'
-import DaySheet from '../../components/Calendar/Day/DaySheet'
-import WeekSheet from '../../components/Calendar/Week/WeekSheet'
-import MonthSheet from '../../components/Calendar/Month/MonthSheet'
+import CalendarLayout from '../../components/Calendar/CalendarLayout'
 import ModalAddTag from '../../components/Tags/ModalAddTag'
 import ModalEditTag from '../../components/Tags/ModalEditTag'
 import SearchModal from '../../components/SearchMenu/SearchModal'
@@ -49,23 +47,12 @@ function Profile() {
   const dispatch = useDispatch()
   /* recieve all user tags from DB  */
   /*
-  ! userID passed as data fot method */
+  ! userID passed as data fot method
+   */
   useEffect(() => {
     dispatch(getTagsListAsync(4))
   }, [])
-  /* Условный рендеринг компонента сетки календаря */
-  // eslint-disable-next-line react/no-unstable-nested-components
-  function CalendarLayout() {
-    if (selectPeriod === 'day') {
-      return <DaySheet calendarValue={value} />
-    }
-    if (selectPeriod === 'week') {
-      return <WeekSheet calendarValue={value} />
-    }
-    if (selectPeriod === 'month') {
-      return <MonthSheet calendarValue={value} />
-    }
-  }
+
   /* open/close modal window Create new event */
   const handleModal = () => {
     setShowModal(!showModal)
@@ -108,7 +95,7 @@ function Profile() {
   const handleOpenSearchMenu = () => {
     setOpenSearchMenu(!openSearchMenu)
   }
-
+  /* modal window for user info */
   const handleClickAvatar = () => {
     setOpenUserInfo(!openUserInfo)
   }
@@ -201,8 +188,9 @@ function Profile() {
         </div>
       </div>
       <div className={s.content}>
-        <CalendarLayout calendarValue={value} />
+        <CalendarLayout selectPeriod={selectPeriod} calendarValue={value} />
       </div>
+      {/* block for modal window */}
       <CreateNewEvent showModal={showModal} setShowModal={setShowModal} />
       <ModalAddTag openAddTag={openAddTag} setOpenAddTag={setOpenAddTag} />
       <ModalEditTag
