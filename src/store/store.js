@@ -5,6 +5,7 @@ import departmnetReducer from '../Pages/Admin/slicer/departmentSlice'
 import positionsReducer from '../Pages/Admin/slicer/positionsSlice'
 import usersReducer from '../Pages/Admin/slicer/userSlice'
 import tagsReducer from '../Pages/Profile/slicer/tagSlice'
+import meetingReducer from '../Pages/Profile/slicer/meetingSlice'
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     positionList: positionsReducer,
     usersList: usersReducer,
     tagsList: tagsReducer,
+    meetingList: meetingReducer,
   },
 })

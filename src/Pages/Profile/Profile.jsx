@@ -11,6 +11,7 @@ import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker'
 import Logo from '../../components/Logo/Logo'
 import Tags from '../../components/Tags/Tags'
 import CreateNewEvent from '../../components/Event/NewEvent'
+import EventParticipant from '../../components/Event/EventParticipant'
 import CalendarLayout from '../../components/Calendar/CalendarLayout'
 import ModalAddTag from '../../components/Tags/ModalAddTag'
 import ModalEditTag from '../../components/Tags/ModalEditTag'
@@ -22,16 +23,27 @@ import NextItem from './assets/nextItem_icon.svg'
 import SearchIcon from './assets/search_icon.svg'
 import AlarmIcon from './assets/alarm_icon.svg'
 import { getTagsListAsync } from './slicer/tagSlice'
+import { getUsersAsync } from '../Admin/slicer/userSlice'
+import { getPositionsAsync } from '../Admin/slicer/positionsSlice'
+import { getmeetingRoom } from '../Admin/slicer/roomSlice'
+import { getAllMeeting } from './slicer/meetingSlice'
+
 import s from './profileStyle.module.scss'
 
 function Profile() {
   /* localisation for labrary moment js */
   moment.locale('ru')
-
   const [value, setValue] = useState(moment()) /* calendar value */
-  const [selectPeriod, setselectPeriod] = useState('day')
+  const startDay = value.clone().startOf('month').startOf('week')
+  const day = startDay.clone().subtract(1, 'day')
+  const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone())
+  const [startDate, setSartDate] = useState(startDay.format('DD.MM.YYYY'))
+  const [endDate, setEndDate] = useState(daysArray[41].format('DD.MM.YYYY'))
+  const [selectPeriod, setselectPeriod] = useState('month')
   const [openSearchMenu, setOpenSearchMenu] = useState(false)
-  const [showModal, setShowModal] = useState(false) /* модальное окно "СОздать новое событие" */
+  const [showModal, setShowModal] = useState(false) /* модальное окно "Создать новое событие" */
+  const [openParticipant, setOpenParticipant] = useState(false) /* выбрать участников события */
+  const [selectedParticipants, setSelectedParticipants] = useState([])
   const [openAddTag, setOpenAddTag] = useState(false) /* Модальное окно "Добавить метку" */
   const [openEditTag, setOpenEditTag] = useState(false) /* Модальное окно "Изменить метку" */
   const [selectedTagId, setSelectedTagId] = useState(0) /* ID выбранного тэга для редкатирования */
@@ -45,13 +57,36 @@ function Profile() {
   const [selectedTagName, setSelectedTagName] = useState('') /* выбранная метка -имя */
   const [selectedTagColor, setSelectedTagColor] = useState('') /* выбранная метка - id */
   const dispatch = useDispatch()
-  /* recieve all user tags from DB  */
-  /*
-  ! userID passed as data fot method
-   */
+  /* recieve data from DB  */
   useEffect(() => {
+    /*
+  ! userID passed as data fot method getTagsListAsync
+   */
     dispatch(getTagsListAsync(4))
+    dispatch(getUsersAsync())
+    dispatch(getPositionsAsync())
+    dispatch(getmeetingRoom())
+    dispatch(
+      getAllMeeting({
+        userId: 4,
+        startDate,
+        endDate,
+      }),
+    )
   }, [])
+  useEffect(() => {
+    /*
+  ! userID passed as data fot method getTagsListAsync
+   */
+
+    dispatch(
+      getAllMeeting({
+        userId: 4,
+        startDate,
+        endDate,
+      }),
+    )
+  }, [value])
 
   /* open/close modal window Create new event */
   const handleModal = () => {
@@ -191,7 +226,19 @@ function Profile() {
         <CalendarLayout selectPeriod={selectPeriod} calendarValue={value} />
       </div>
       {/* block for modal window */}
-      <CreateNewEvent showModal={showModal} setShowModal={setShowModal} />
+      <CreateNewEvent
+        showModal={showModal}
+        setShowModal={setShowModal}
+        setOpenParticipant={setOpenParticipant}
+        selectedParticipants={selectedParticipants}
+        setSelectedParticipants={setSelectedParticipants}
+      />
+      <EventParticipant
+        openParticipant={openParticipant}
+        setOpenParticipant={setOpenParticipant}
+        setShowModal={setShowModal}
+        setSelectedParticipants={setSelectedParticipants}
+      />
       <ModalAddTag openAddTag={openAddTag} setOpenAddTag={setOpenAddTag} />
       <ModalEditTag
         openEditTag={openEditTag}

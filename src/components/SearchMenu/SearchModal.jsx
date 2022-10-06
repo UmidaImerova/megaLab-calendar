@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import SearchIcon from '@mui/icons-material/Search'
 import CancelIcon from '@mui/icons-material/Cancel'
@@ -11,10 +11,7 @@ import Tab from '@mui/material/Tab'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
-import { useSelector, useDispatch } from 'react-redux'
-import { getUsersAsync } from '../../Pages/Admin/slicer/userSlice'
-import { getPositionsAsync } from '../../Pages/Admin/slicer/positionsSlice'
-import { getmeetingRoom } from '../../Pages/Admin/slicer/roomSlice'
+import { useSelector } from 'react-redux'
 import UserCard from './UserCard'
 import RoomCard from './RoomCard'
 import s from './searchMenuStyle.module.scss'
@@ -31,14 +28,7 @@ function SearchModal({ openSearchMenu, setOpenSearchMenu }) {
 
   const allUsers = useSelector((state) => state.usersList.users)
   const allRooms = useSelector((state) => state.roomList.meetingrooms)
-  const dispatch = useDispatch()
 
-  /* recieve data from DB  */
-  useEffect(() => {
-    dispatch(getUsersAsync())
-    dispatch(getPositionsAsync())
-    dispatch(getmeetingRoom())
-  }, [])
   /* search staff */
   const handleSearchByUserName = () => {
     const searchingValue = inputValue.toLowerCase()

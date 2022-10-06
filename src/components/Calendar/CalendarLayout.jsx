@@ -7,7 +7,7 @@ import MonthSheet from './Month/MonthSheet'
 function CalendarLayout({ selectPeriod, calendarValue }) {
   CalendarLayout.propTypes = {
     selectPeriod: PropTypes.string,
-    calendarValue: PropTypes.array,
+    calendarValue: PropTypes.object,
   }
   /* Условный рендеринг компонента сетки календаря */
   if (selectPeriod === 'day') {

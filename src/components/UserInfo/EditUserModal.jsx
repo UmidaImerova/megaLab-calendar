@@ -72,6 +72,11 @@ function EditUserModal({
       setErrorMsg('Пароли не совпадают')
     }
   }
+
+  const handleEditUserInfo = () => {
+    // eslint-disable-next-line no-console
+    console.log('edit user')
+  }
   return (
     <div className={openEditUser ? s.modal : s.modal_hidden}>
       <div className={s.wrapper}>
@@ -188,9 +193,9 @@ function EditUserModal({
         <div>
           <button
             className={s.standartButton}
-            type="submit"
+            type="button"
             // eslint-disable-next-line no-console
-            onClick={console.log('Submit')}
+            onClick={handleEditUserInfo}
             disabled={isDisabledBtn}
           >
             Добавить
