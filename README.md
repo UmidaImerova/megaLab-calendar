@@ -1,8 +1,8 @@
 # megaLab calendar
 
-Инструмент для планирования распорядка дня.
+A tool for planning your daily routine. As part of the MegaLab Internship Program
 
-Функционал описан https://docs.google.com/spreadsheets/d/1yveZHqEzSObbth4jsbWqV2ULc13PwTM9T2lkBFsfipY/edit?usp=sharing
+Business Requirement https://docs.google.com/spreadsheets/d/1yveZHqEzSObbth4jsbWqV2ULc13PwTM9T2lkBFsfipY/edit?usp=sharing
 
-Макет размещен https://www.figma.com/file/9UiA1jvjjyU5EHgfJTUwfX/calendar?node-id=852%3A355
+Design layout https://www.figma.com/file/9UiA1jvjjyU5EHgfJTUwfX/calendar?node-id=852%3A355
 
