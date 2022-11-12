@@ -34,6 +34,8 @@ export const getAllMeeting = (data) => async (dispatch) => {
 
 export const addNewMeetengAsync = (data) => async (dispatch) => {
   const URL = 'https://megalab-app.herokuapp.com/api/v1/meeting/create'
+  // eslint-disable-next-line no-console
+  console.log(data)
   try {
     await axios.post(URL, data)
   } catch (err) {

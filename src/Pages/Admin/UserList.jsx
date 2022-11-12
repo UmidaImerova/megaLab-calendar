@@ -72,9 +72,6 @@ function UserList() {
                 <h4>Отдел пользователя</h4>
               </TableCell>
               <TableCell>
-                <h4>Организация</h4>
-              </TableCell>
-              <TableCell>
                 <h4>Должность</h4>
               </TableCell>
               <TableCell>

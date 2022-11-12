@@ -57,7 +57,17 @@ function Profile() {
   const [selectedTagName, setSelectedTagName] = useState('') /* выбранная метка -имя */
   const [selectedTagColor, setSelectedTagColor] = useState('') /* выбранная метка - id */
   const dispatch = useDispatch()
+
   /* recieve data from DB  */
+  const recieveEvents = () => {
+    dispatch(
+      getAllMeeting({
+        userId: 4,
+        startDate,
+        endDate,
+      }),
+    )
+  }
   useEffect(() => {
     /*
   ! userID passed as data fot method getTagsListAsync
@@ -66,27 +76,10 @@ function Profile() {
     dispatch(getUsersAsync())
     dispatch(getPositionsAsync())
     dispatch(getmeetingRoom())
-    dispatch(
-      getAllMeeting({
-        userId: 4,
-        startDate,
-        endDate,
-      }),
-    )
+    recieveEvents()
+    // eslint-disable-next-line no-console
+    // console.log('startDay first render', startDay.format('DD.MM.YYYY'))
   }, [])
-  useEffect(() => {
-    /*
-  ! userID passed as data fot method getTagsListAsync
-   */
-
-    dispatch(
-      getAllMeeting({
-        userId: 4,
-        startDate,
-        endDate,
-      }),
-    )
-  }, [value])
 
   /* open/close modal window Create new event */
   const handleModal = () => {
@@ -121,7 +114,12 @@ function Profile() {
     if (selectPeriod === 'month') {
       setValue((prev) => prev.clone().add(1, 'month'))
     }
+    recieveEvents()
   }
+  // eslint-disable-next-line no-console
+  // console.log('value', value.format('DD.MM.YYYY'))
+  // eslint-disable-next-line no-console
+  // console.log('startDay', startDay.format('DD.MM.YYYY'))
   /* open modal window for adding tag */
   const handleOpenAddTag = () => {
     setOpenAddTag(true)
@@ -232,6 +230,7 @@ function Profile() {
         setOpenParticipant={setOpenParticipant}
         selectedParticipants={selectedParticipants}
         setSelectedParticipants={setSelectedParticipants}
+        recieveEvents={recieveEvents}
       />
       <EventParticipant
         openParticipant={openParticipant}

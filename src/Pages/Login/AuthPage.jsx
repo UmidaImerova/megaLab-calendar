@@ -96,7 +96,7 @@ function AuthPage() {
                 Войти
               </button>
               <span>У вас нет аккаунта?</span>
-              <Link to="/">Регистрация</Link>
+              <Link to="/login">Регистрация</Link>
             </form>
           </div>
         </div>
