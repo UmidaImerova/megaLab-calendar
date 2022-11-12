@@ -22,6 +22,7 @@ function CreateNewEvent({
   setOpenParticipant,
   selectedParticipants,
   setSelectedParticipants,
+  recieveEvents,
 }) {
   CreateNewEvent.propTypes = {
     showModal: PropTypes.bool,
@@ -29,6 +30,7 @@ function CreateNewEvent({
     setOpenParticipant: PropTypes.func,
     selectedParticipants: PropTypes.array,
     setSelectedParticipants: PropTypes.func,
+    recieveEvents: PropTypes.func,
   }
   /* localisation for labrary moment js */
   moment.locale('ru')
@@ -116,6 +118,7 @@ function CreateNewEvent({
       }),
     )
     setShowModal(false)
+    recieveEvents()
   }
   return (
     <div className={showModal ? s.modal : s.modal_hidden}>
@@ -138,6 +141,7 @@ function CreateNewEvent({
           <h6>Дата</h6>
           <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="ru">
             <DesktopDatePicker
+              disablePast
               views={['day']}
               openTo="day"
               value={dateValue}

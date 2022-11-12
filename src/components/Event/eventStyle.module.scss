@@ -344,6 +344,36 @@
                 margin-right: 5px;
             }
         }
+
+        .sumbitBtn{
+            width: 184px;
+            height: 48px;
+            margin-top: 8px;
+            position: absolute;
+            right: 24px;
+
+
+            color: #FFFFFF;
+            background: #4B84F4;
+            border: none;
+            border-radius: 10px;
+
+            font-family: 'Roboto';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19px;
+        }
+
+        .deleteBtn{
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+        }
     }
 
     

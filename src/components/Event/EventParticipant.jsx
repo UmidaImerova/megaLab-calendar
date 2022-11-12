@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 import CloseIcon from '@mui/icons-material/Close'
 import SearchIcon from '@mui/icons-material/Search'
-import CancelIcon from '@mui/icons-material/Cancel'
 import { Table, TableRow, TableCell, TableBody, Avatar, Checkbox, Badge } from '@mui/material'
+import SelectedUser from './SelectedUser'
 import s from './eventStyle.module.scss'
 
 function EventParticipant({
@@ -26,8 +26,8 @@ function EventParticipant({
     setOpenParticipant(false)
     setShowModal(true)
   }
-  const handleClick = (event, id) => {
-    const selectedIndex = selected.indexOf(id)
+  const handleClick = (event) => {
+    /*     const selectedIndex = selected.indexOf(id)
     let newSelected = []
 
     if (selectedIndex === -1) {
@@ -41,33 +41,17 @@ function EventParticipant({
         selected.slice(0, selectedIndex),
         selected.slice(selectedIndex + 1),
       )
-    }
-    setSelected(newSelected)
+    } */
+    // const newSelected = Number(event.currentTurget.id)
+    // eslint-disable-next-line no-console
+    console.log(event.target.value)
+    // setSelected(newSelected)
 
-    setSelectedParticipants(newSelected)
+    // setSelectedParticipants(newSelected)
   }
 
   const isSelected = (name) => selected.indexOf(name) !== -1
   const filteredUser = allUsers.filter((user) => user.full_name.toLowerCase().includes(searchValue))
-
-  // eslint-disable-next-line react/no-unstable-nested-components
-  function SelectedUser() {
-    return (
-      <div className={s.participantList}>
-        {selected.map((user) => (
-          <div className={s.badge} key={user.id}>
-            <Badge
-              overlap="circular"
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              badgeContent={<CancelIcon sx={{ color: 'error.main' }} fontSize="small" />}
-            >
-              <Avatar alt={user.full_name} src={user.photo_path} sx={{ width: 32, height: 32 }} />
-            </Badge>
-          </div>
-        ))}
-      </div>
-    )
-  }
 
   return (
     <div className={openParticipant ? s.modalParticipant : s.modal_hidden}>
@@ -96,10 +80,11 @@ function EventParticipant({
                   <TableRow
                     hover
                     key={user.id}
+                    id={user.id}
                     role="checkbox"
                     aria-checked={isItemSelected}
-                    selected={isItemSelected}
-                    onClick={(event) => handleClick(event, user.id)}
+                    // selected={isItemSelected}
+                    onDoubleClick={(event) => handleClick(event, user.id)}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
@@ -126,7 +111,14 @@ function EventParticipant({
             </TableBody>
           </Table>
         </div>
-        <div>{selected.length ? <SelectedUser /> : ''}</div>
+        <div className={s.selected_user}>
+          {selected.length ? <SelectedUser selected={selected} setSelected={setSelected} /> : ''}
+        </div>
+        <div className={s.footer}>
+          <button className={s.sumbitBtn} type="submit">
+            Сохранить
+          </button>
+        </div>
       </div>
     </div>
   )
